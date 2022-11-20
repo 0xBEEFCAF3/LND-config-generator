@@ -59,11 +59,11 @@
   },
   "app": {
     "section": "Application Configs",
-    "description": "The directory that lnd stores all wallet, chain, and channel related data; within The default is ~/.lnd/data on POSIX OSes, $LOCALAPPDATA/Lnd/data on ; Windows, ~/Library/Application Support/Lnd/data on Mac OS, and $home/lnd/data ; on Plan9. Environment variables are expanded so they may be used. NOTE: ; Windows environment variables are typically %VARIABLE%, but they must be ; accessed with $VARIABLE here. Also, ~ is expanded to $LOCALAPPDATA on Windows.",
+    "description": "Basic parameters regarding LND node operation.",
     "datadir": {
       "name": "Data Dir",
       "description": "The directory that lnd stores all wallet, chain, and channel related data",
-      "default": "datadir=~/.lnd/data"
+      "default": "~/.lnd/data"
     },
     "logdir": {
       "name": "Log Dir",
@@ -174,6 +174,157 @@
       "name": "Payments expiration grace period",
       "description": " A period to wait before for closing channels with outgoing htlcs that have timed out and are a result of this nodes instead payment. Valid time units are {s, m, h}.",
       "default": "true"
-    }
+    },
+    "listen": {
+      "name": "Listen",
+      "description": "Specify the interfaces to listen on for p2p connections. One listen address per line.",
+      "default": "0.0.0.0:9735"
+    },
+    "nolisten": {
+      "name": "No Listen",
+      "description": "Disable listening for incoming p2p connections. This will override all listeners.",
+      "default": "false"
+    },
+    "rpclisten": {
+      "name": "RPC Listen",
+      "description": "Specify the interfaces to listen on for gRPC connections. One listen address per line.",
+      "default": "localhost:10009"
+    },
+    "restlisten": {
+      "name": "REST Listen",
+      "description": "Specify the interfaces to listen on for REST connections. One listen address per line.",
+      "default": "0.0.0.0:8080"
+    },
+    "restcors": {
+      "name": "REST CORS",
+      "description": "A series of domains to allow cross origin access from. This controls the CORs policy of the REST RPC proxy.",
+      "default": ""
+    },
+    "externalip": {
+      "name": "External Ip",
+      "description": "Adding an external IP will advertise your node to the network. This signals that your node is available to accept incoming channels. If you don't wish to advertise your node, this value doesn't need to be set.",
+      "default": ""
+    },
+    "nat": {
+      "name": "NAT",
+      "description": "Instead of explicitly stating your external IP address, you can also enable UPnP or NAT-PMP support on the daemon.",
+      "default": "false"
+    },
+    "norest": {
+      "name": "No REST",
+      "description": "Disable REST API.",
+      "default": "false"
+    },
+    "no-rest-tls": {
+      "name": "No REST TLS",
+      "description": "Disable TLS for the REST API.",
+      "default": "false"
+    },
+    "addpeer": {
+      "name": "Add Peer",
+      "description": "Specify peer(s) to connect to first.",
+      "default": ""
+    },
+    "ws-ping-interval": {
+      "name": "WS Ping Interval",
+      "description": "The ping interval for REST based WebSocket connections, set to 0 to disable sending ping messages from the server side. Valid time units are {s, m, h}.",
+      "default": ""
+    },
+    "ws-pong-wait": {
+      "name": "WS Pong Wait",
+      "description": "The time we wait for a pong response message on REST based WebSocket connections before the connection is closed as inactive. Valid time units are {s, m, h}.",
+      "default": ""
+    },
+    "minbackoff": {
+      "name": "Min Backoff",
+      "description": "Shortest backoff when reconnecting to persistent peers. Valid time units are {s, m, h}.",
+      "default": ""
+    },
+    "maxbackoff": {
+      "name": "Max Backoff",
+      "description": "Longest backoff when reconnecting to persistent peers. Valid time units are {s, m, h}.",
+      "default": ""
+    },
+    "connectiontimeout": {
+      "name": "Connection Timeout",
+      "description": "The timeout value for network connections in seconds, default to 120 seconds. Valid uints are {ms, s, m, h}.",
+      "default": ""
+    },
+    "debuglevel": {
+      "name": "Debug Level",
+      "description": "Debug logging level. Valid levels are {trace, debug, info, warn, error, critical}",
+      "default": "debug"
+    },
+    "cpuprofile": {
+      "name": "CPU Profile",
+      "description": "Write CPU profile to the specified file.",
+      "default": ""
+    },
+    "profile": {
+      "name": "Profile",
+      "description": "Enable HTTP profiling on given port -- NOTE port must be between 1024 and 65536. The profile can be access at: http://localhost:<PORT>/debug/pprof/.",
+      "default": ""
+    },
+    "unsafe-replay": {
+      "name": "Unsafe Replay",
+      "description": "Causes a link to replay the adds on its commitment txn after starting up, this enables testing of the sphinx replay logic.",
+      "default": ""
+    },
+    "maxpendingchannels": {
+      "name": "Max Pending Channels",
+      "description": "The maximum number of incoming pending channels permitted per peer.",
+      "default": "1"
+    },
+    "backupfilepath": {
+      "name": "Backup file Path",
+      "description": "The target location of the channel backup file.",
+      "default": ""
+    },
+    "blockcachesize": {
+      "name": "Block Cache Size",
+      "description": "The maximum capacity of the block cache in bytes. Increasing this will result in more blocks being kept in memory but will increase performance when the same block is required multiple times.",
+      "default": ""
+    },
+    "feeurl": {
+      "name": "Fee Url",
+      "description": "Optional URL for external fee estimation. If no URL is specified, the method for fee estimation will depend on the chosen backend and network. Must be set for neutrino on mainnet.",
+      "default": ""
+    },
+    "nobootstrap": {
+      "name": "No Boot Strap",
+      "description": "If true, then automatic network bootstrapping will not be attempted. This means that your node won't attempt to automatically seek out peers on the network",
+      "default": "false"
+    },
+    "noseedbackup": {
+      "name": "No Seed Backup",
+      "description": "If true, NO SEED WILL BE EXPOSED -- EVER, AND THE WALLET WILL BE ENCRYPTED USING THE DEFAULT PASSPHRASE. THIS FLAG IS ONLY FOR TESTING AND SHOULD NEVER BE USED ON MAINNET.",
+      "default": "false"
+    },
+    "wallet-unlock-password-file": {
+      "name": "Wallet Unlock Password File",
+      "description": "The full path to a file (or pipe/device) that contains the password for \n;unlocking the wallet; if set, no unlocking through RPC is possible and lnd\n; will exit if no wallet exists or the password is incorrect; if\n; wallet-unlock-allow-create is also set then lnd will ignore this flag if no\n; wallet exists and allow a wallet to be created through RPC.",
+      "default": ""
+    },
+    "wallet-unlock-allow-create": {
+      "name": "Wallet Unlock Allow Create",
+      "description": "Don't fail with an error if wallet-unlock-password-file is set but no wallet\n; exists yet. Not recommended for auto-provisioned or high-security systems\n; because the wallet creation RPC is unauthenticated and an attacker could\n; inject a seed while lnd is in that state.",
+      "default": ""
+    },
+    "reset-wallet-transactions": {
+      "name": "Reset Wallet Transactions",
+      "description": "Removes all transaction history from the on-chain wallet on startup, forcing a\n; full chain rescan starting at the wallet's birthday. Implements the same\n; functionality as btcwallet's dropwtxmgr command. Should be set to false after\n; successful execution to avoid rescanning on every restart of lnd.",
+      "default": ""
+    },
+    "minchansize": {
+      "name": "Minimum Channel Size",
+      "description": "The smallest channel size (in satoshis) that we should accept. Incoming channels smaller than this will be rejected, default value 20000.",
+      "default": ""
+    },
+    "": {
+      "name": "",
+      "description": "",
+      "default": ""
+    },
+    
   }
 }

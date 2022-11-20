@@ -29,16 +29,9 @@ class Editor extends Component {
       <div>
         { this.select('__internal', 'platform') }
         <Section title={data.app.section} description={data.app.description}>
-          { this.text('app', 'zmqpubhashblock') }
-          { this.text('app', 'zmqpubhashtx') }
-          { this.text('app', 'zmqpubrawblock') }
-          { this.text('app', 'zmqpubrawtx') }
-          { this.text('app', 'zmqpubsequence') }
-          { this.number('app', 'zmqpubhashblockhwm') }
-          { this.number('app', 'zmqpubhashtxhwm') }
-          { this.number('app', 'zmqpubrawblockhwm') }
-          { this.number('app', 'zmqpubrawtxhwm') }
-          { this.number('app', 'zmqpubsequencehwm') }
+          { this.text('app', 'datadir') }
+          { this.text('app', 'logdir') }
+
         </Section>
       </div>
     );

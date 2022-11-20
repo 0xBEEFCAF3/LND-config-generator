@@ -106,14 +106,6 @@ function toConf (settings, defaults) {
       '# EXCEPTIONS: The options addnode, connect, port, bind, rpcport, rpcbind and wallet',
       '# only apply to mainnet unless they appear in the appropriate section below.',
       '',
-      '# Options only for mainnet',
-      '[main]',
-      '',
-      '# Options only for testnet',
-      '[test]',
-      '',
-      '# Options only for regtest',
-      '[regtest]'
       );
   }
 
