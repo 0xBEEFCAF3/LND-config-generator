@@ -1,5 +1,5 @@
 {
-  "name": "bitcoin-core-config-generator",
+  "name": "lnd-core-config-generator",
   "version": "0.1.0",
   "private": true,
   "homepage": "http://jlopp.github.io/bitcoin-core-config-generator",

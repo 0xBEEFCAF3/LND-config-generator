@@ -3,12 +3,11 @@
     "platform": {
       "name": "Platform",
       "description": {
-        "Windows": "Config for Windows",
         "Linux": "Config for Linux",
         "Mac OS": "Config for Mac OS"
       },
       "default": null,
-      "values": ["Windows", "Linux", "Mac OS"]
+      "values": ["Linux", "Mac OS"]
     }
   },
   "chain": {
@@ -58,1051 +57,123 @@
       "default": ""
     }
   },
-  "core": {
-    "section": "Bitcoin Core",
-    "description": "Basic parameters regarding Bitcoin Core node operation.",
-    "alertnotify": {
-      "name": "Alert Notification",
-      "description": "Execute command when an alert (or long fork) is received (%s in cmd is replaced by message)",
-      "default": ""
-    },
-    "blockfilterindex": {
-      "name": "Block Filter Index",
-      "description": "Maintain an index of compact filters by block",
-      "description": {
-        "0": "Disable compact filters.",
-        "1": "Enable all compact filters.",
-        "basic": "Basic filters"
-      },
-      "default": "0",
-      "values": [
-        "Disable [0]",
-        "Enable All [1]",
-        "Basic Filters [basic]"
-      ]
-    },
-    "blocknotify": {
-      "name": "Block Notification",
-      "description": "Execute command when the best block changes (%s in cmd is replaced by block hash)",
-      "default": ""
-    },
-    "blocksdir": {
-      "name": "Block Data Storage Location",
-      "description": "Specify a non-default location to store blockchain data.",
-      "default": "$BASE/blocks"
-    },
-    "blocksonly": {
-      "name": "Blocks Only Mode",
-      "description": "Only download and relay blocks - ignore unconfirmed transaction",
-      "default": 0
-    },
-    "assumevalid": {
-      "name": "Assume Valid Chain History",
-      "description": "Assume that this block hash and its ancestors are valid. Skip their script verification (performance boost.) Set to 0 to verify all blocks. We recommend leaving value blank.",
-      "default": ""
-    },
-    "coinstatsindex": {
-      "name": "Coin Stats Index",
-      "description": "Maintain coinstats index used by the gettxoutsetinfo RPC.",
-      "default": 0
-    },
-    "daemon": {
-      "name": "Daemon Mode",
-      "description": "Run in the background as a daemon and accept commands.",
-      "default": 0
-    },
-    "daemonwait": {
-      "name": "Daemon Wait Mode",
-      "description": "Wait for initialization to be finished before exiting. This implies -daemon.",
-      "default": 0
-    },
+  "app": {
+    "section": "Application Configs",
+    "description": "The directory that lnd stores all wallet, chain, and channel related data; within The default is ~/.lnd/data on POSIX OSes, $LOCALAPPDATA/Lnd/data on ; Windows, ~/Library/Application Support/Lnd/data on Mac OS, and $home/lnd/data ; on Plan9. Environment variables are expanded so they may be used. NOTE: ; Windows environment variables are typically %VARIABLE%, but they must be ; accessed with $VARIABLE here. Also, ~ is expanded to $LOCALAPPDATA on Windows.",
     "datadir": {
-      "name": "Data Storage Location",
-      "description": "Specify a non-default location to store blockchain and other data.",
-      "default": "$BASE"
+      "name": "Data Dir",
+      "description": "The directory that lnd stores all wallet, chain, and channel related data",
+      "default": "datadir=~/.lnd/data"
     },
-    "dbbatchsize": {
-      "name": "DB Batch Size",
-      "description": "Maximum database write batch size in bytes.",
-      "default": 16777216,
-      "min": 1024
+    "logdir": {
+      "name": "Log Dir",
+      "description": "The directory that logs are stored in. The logs are auto-rotated by default. Rotated logs are compressed in place.",
+      "default": "~/.lnd/logs"
     },
-    "dbcache": {
-      "name": "DB Cache Size",
-      "description": "Set database cache size in megabytes; machines sync faster with a larger cache. Recommend setting as high as possible based upon machine's available RAM.",
-      "default": 450,
-      "min": 4
+    "maxlogfiles": {
+      "name": "Max Log Files",
+      "description": "Number of logfiles that the log rotation should keep. Setting it to 0 disables deletion of old log files.",
+      "default": "3"
     },
-    "includeconf": {
-      "name": "Include Config File",
-      "description": "Load additional configuration file, relative to the data directory.",
+    "maxlogfilesize": {
+      "name": "Max Log File Size",
+      "description": "Max log file size in MB before it is rotated.",
       "default": ""
     },
-    "loadblock": {
-      "name": "Import Blocks From File",
-      "description": "Imports blocks from external blk000??.dat file on startup. This option can be set multiple times with different file values.",
+    "acceptortimeout": {
+      "name": "Acceptor Timeout",
+      "description": "Time after which an RPCAcceptor will time out and return false if it hasn't yet received a response.",
+      "default": "15s"
+    },
+    "tlscertpath": {
+      "name": "TLS Cert Path",
+      "description": "Path to TLS certificate for lnd's RPC and REST services.",
+      "default": "~/.lnd/tls.cert"
+    },
+    "tlskeypath": {
+      "name": "TLS Private Key Path",
+      "description": "Path to TLS private key for lnd's RPC and REST services.",
+      "default": "~/.lnd/tls.key"
+    },
+    "tlsextraip": {
+      "name": "Tls Extra IP",
+      "description": "Adds an extra ip to the generated certificate. Setting multiple tlsextraip= entries is allowed.",
       "default": ""
     },
-    "maxorphantx": {
-      "name": "Max Orphan Transactions",
-      "description": "Keep at most <n> unconnectable transactions in memory.",
-      "default": 100,
-      "min": 0
-    },
-    "maxmempool": {
-      "name": "Max Mempool Size",
-      "description": "Keep the transaction memory pool below <n> megabytes.",
-      "default": 300
-    },
-    "mempoolexpiry": {
-      "name": "Mempool Expiration",
-      "description": "Do not keep transactions in the mempool longer than <n> hours.",
-      "default": 336,
-      "min": 1
-    },
-    "minimumchainwork": {
-      "name": "Minimum Chain Work",
-      "description": "The (hex value) minimum amount of cumulative proof of work required.",
-      "default": "0x000000000000000000000000000000000000000000f91c579d57cad4bc5278cc"
-    },
-    "persistmempool": {
-      "name": "Persist Mempool",
-      "description": "Save the mempool on shutdown and load on restart.",
-      "default": 1
-    },
-    "blockreconstructionextratxn": {
-      "name": "Block Reconstruction Transactions",
-      "description": "Extra transactions to keep in memory for compact block reconstructions.",
-      "default": 100
-    },
-    "par": {
-      "name": "Script Verification Parallelization",
-      "description": "Set the number of script verification threads. (1 to CPU_CORES, 0 = automatic, less than 0 = leave that many cores free).",
-      "default": 0
-    },
-    "pid": {
-      "name": "PID file",
-      "description": "Specify process ID file name. Ignored for Windows.",
-      "default": "bitcoind.pid"
-    },
-    "prune": {
-      "name": "Prune Old Blocks",
-      "description": "Reduce storage requirements by only storing most recent N MiB of block. This mode is incompatible with -txindex and -coinstatsindex. WARNING: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, greater than 550 = automatically prune blocks to stay under target size in MiB).",
-      "default": 0,
-      "min": 0
-    },
-    "reindex-chainstate": {
-      "name": "Reindex Chainstate",
-      "description": "Reindex chain state from the currently indexed blocks. WARNING: very slow!",
-      "default": 0
-    },
-    "reindex": {
-      "name": "Reindex",
-      "description": "Rebuild chain state and block index from the blk*.dat files on disk. WARNING: very slow!",
-      "default": 0
-    },
-    "sandbox": {
-      "name": "Sandbox Mode",
-      "description": {
-        "0": "Do not use the experimental syscall sandbox.",
-        "abort": "Allow only expected syscalls to be used by bitcoind. The invocation of an unexpected syscall results in the entire process being killed immediately by the kernel without executing the unexpected syscall. Note that this is an experimental new feature that may cause bitcoind to exit or crash unexpectedly: use with caution.",
-        "log-and-abort": "Allow only expected syscalls to be used by bitcoind. The invocation of an unexpected syscall results in a debug handler being invoked which will log the incident and terminate the program (without executing the unexpected syscall.) Note that this is an experimental new feature that may cause bitcoind to exit or crash unexpectedly: use with caution."
-      },
-      "default": "0",
-      "values": [
-        "Disabled [0]",
-        "Abort [abort]",
-        "Log and Abort [log-and-abort]"
-      ]
-    },
-    "settings": {
-      "name": "Settings Data File",
-      "description": "Specify path to dynamic settings data file. Can be disabled with -nosettings. File is written at runtime and not meant to be edited by users. Relative paths will be prefixed by datadir location.",
-      "default": "settings.json"
-    },
-    "startupnotify": {
-      "name": "Startup Notification",
-      "description": "Execute command on startup.",
+    "tlsextradomain": {
+      "name": "Tls Extra domain",
+      "description": "Adds an extra domain to the generate certificate. Setting multiple tlsextradomain= entries is allowed.",
       "default": ""
     },
-    "sysperms": {
-      "name": "System File Permissions",
-      "description": "Create new files with system default permissions. Only effective if wallet is disabled.",
-      "default": 0
-    },
-    "txindex": {
-      "name": "Index Transactions",
-      "description": "Maintain a full transaction index, used by the getrawtransaction rpc call.",
-      "default": 0
-    }
-  },
-  "debug": {
-    "section": "Debugging & Testing",
-    "description": "Features that help developers who are testing changes to Bitcoin Core.",
-    "uacomment": {
-      "name": "User Agent Comment",
-      "description": "Append comment to the user agent string.",
-      "default": ""
-    },
-    "addrmantest": {
-      "name": "Address Manager Test",
-      "description": "Allows you to test address relay on localhost.",
-      "default": 0
-    },
-    "capturemessages": {
-      "name": "Capture Messages",
-      "description": "Capture all P2P messages to disk.",
-      "default": 0
-    },
-    "checkblocks": {
-      "name": "Check Blocks",
-      "description": "How many recent blocks to check at startup.",
-      "default": 6,
-      "min": 0
-    },
-    "checklevel": {
-      "name": "Check Block Level",
-      "description": "How thorough the block verification of -checkblocks is (0-4).",
-      "default": 3,
-      "min": 0,
-      "max": 4
-    },
-    "checkaddrman": {
-      "name": "Check Address Manager",
-      "description": "Run addrman consistency checks every <n> operations.",
-      "default": 0,
-      "min": 0
-    },
-    "checkmempool": {
-      "name": "Check Mempool",
-      "description": "Run mempool consistency checks every <n> transactions.",
-      "default": 0,
-      "min": 0
-    },
-    "checkpoints": {
-      "name": "Enable Checkpoints",
-      "description": "Disable expensive verification for known chain history.",
-      "default": 1
-    },
-    "dbcrashratio": {
-      "name": "DB Crash Ratio",
-      "description": "Randomly crash while writing data at a given rate between 0 and 1.",
-      "default": 0,
-      "min": 0,
-      "max": 1
-    },
-    "fastprune": {
-      "name": "Fast Prune",
-      "description": "Use smaller block files and lower minimum prune height for testing purposes.",
-      "default": 0
-    },
-    "stopafterblockimport": {
-      "name": "Stop After Block Import",
-      "description": "Stop running after importing blocks from disk.",
-      "default": 0
-    },
-    "stopatheight": {
-      "name": "Stop At Height",
-      "description": "Stop running after reaching the given height in the main chain.",
-      "default": 0
-    },
-    "testactivationheight": {
-      "name": "Test Activation Height",
-      "description": "Set the activation height of of 'name' (segwit, bip34, dersig, cltv, csv) via 'name@height' (regtest-only).",
-      "default": 0
-    },
-    "limitancestorcount": {
-      "name": "Limit Transaction Ancestor Count",
-      "description": "Do not accept transactions if number of in-mempool ancestors is <n> or more.",
-      "default": 25,
-      "min": 0
-    },
-    "limitancestorsize": {
-      "name": "Limit Transaction Ancestor Size",
-      "description": "Do not accept transactions whose size with all in-mempool ancestors exceeds <n> kilobytes.",
-      "default": 101,
-      "min": 0
-    },
-    "limitdescendantcount": {
-      "name": "Limit Transaction Descendant Count",
-      "description": "Do not accept transactions if any ancestor would have <n> or more in-mempool descendants.",
-      "default": 25,
-      "min": 0
-    },
-    "limitdescendantsize": {
-      "name": "Limit Transaction Descendant Size",
-      "description": "Do not accept transactions whose size with all in-mempool descendants exceeds <n> kilobytes.",
-      "default": 101,
-      "min": 0
-    },
-    "debug": {
-      "name": "Debug Logging",
-      "description": {
-        "0": "Disable debug logging.",
-        "1": "Enable debug logging for all categories.",
-        "addrman": "Enable address manager logging.",
-        "alert": "Enable alert logging",
-        "bench": "Enable benchmark logging",
-        "cmpctblock": "Enable compact block logging",
-        "coindb": "Enable coin database logging",
-        "walletdb": "Enable wallet database logging",
-        "http": "Enable HTTP logging",
-        "leveldb": "Enable leveldb logging",
-        "libevent": "Enable libevent logging",
-        "lock": "Enable lock logging",
-        "mempool": "Enable mempool logging",
-        "mempoolrej": "Enable mempool rejection logging",
-        "net": "Enable network logging",
-        "proxy": "Enable proxy logging",
-        "prune": "Enable pruning logging",
-        "rand": "Enable randomness logging",
-        "reindex": "Enable reindexing logging",
-        "rpc": "Enable RPC logging",
-        "selectcoins": "Enable coin selection logging",
-        "tor": "Enable Tor logging",
-        "zmq": "Enable ZeroMQ logging"
-      },
-      "default": "0",
-      "values": [
-        "Disable [0]",
-        "Enable All [1]",
-        "Address Manager [addrman]",
-        "Alerts [alert]",
-        "Benchmarking [bench]",
-        "Compact Blocks [cmpctblock]",
-        "CoinDB [coindb]",
-        "Database [db]",
-        "HTTP [http]",
-        "LevelDB [leveldb]",
-        "LibEvent [libevent]",
-        "Locking [lock]",
-        "Mempool [mempool]",
-        "Mempool Rejection [mempoolrej]",
-        "Networking [net]",
-        "Proxy [proxy]",
-        "Pruning [prune]",
-        "Random [rand]",
-        "Reinding [reindex]",
-        "RPC [rpc]",
-        "Coin Selection [selectcoins]",
-        "Tor [tor]",
-        "ZeroMQ [zmq]"
-      ]
-    },
-    "debugexclude": {
-      "name": "Exclude Debug Logging",
-      "description": {
-        "0": "Don't exclude any logging.",
-        "addrman": "Exclude address manager logging.",
-        "alert": "Exclude alert logging",
-        "bench": "Exclude benchmark logging",
-        "cmpctblock": "Exclude compact block logging",
-        "coindb": "Exclude coin database logging",
-        "db": "Exclude database logging",
-        "http": "Exclude HTTP logging",
-        "leveldb": "Exclude leveldb logging",
-        "libevent": "Exclude libevent logging",
-        "lock": "Exclude lock logging",
-        "mempool": "Exclude mempool logging",
-        "mempoolrej": "Exclude mempool rejection logging",
-        "net": "Exclude network logging",
-        "proxy": "Exclude proxy logging",
-        "prune": "Exclude pruning logging",
-        "rand": "Exclude randomness logging",
-        "reindex": "Exclude reindexing logging",
-        "rpc": "Exclude RPC logging",
-        "selectcoins": "Exclude coin selection logging",
-        "tor": "Exclude Tor logging",
-        "zmq": "Exclude ZeroMQ logging"
-      },
-      "default": "0",
-      "values": [
-        "No Exclusions [0]",
-        "Address Manager [addrman]",
-        "Alerts [alert]",
-        "Benchmarking [bench]",
-        "Compact Blocks [cmpctblock]",
-        "CoinDB [coindb]",
-        "Database [db]",
-        "HTTP [http]",
-        "LevelDB [leveldb]",
-        "LibEvent [libevent]",
-        "Locking [lock]",
-        "Mempool [mempool]",
-        "Mempool Rejection [mempoolrej]",
-        "Networking [net]",
-        "Proxy [proxy]",
-        "Pruning [prune]",
-        "Random [rand]",
-        "Reinding [reindex]",
-        "RPC [rpc]",
-        "Coin Selection [selectcoins]",
-        "Tor [tor]",
-        "ZeroMQ [zmq]"
-      ]
-    },
-    "debuglogfile": {
-      "name": "Debug Log File",
-      "description": "Location of the debug log",
-      "default": "$BASE/debug.log"
-    },
-    "logips": {
-      "name": "Log IP Addresses",
-      "description": "Log IP Addresses in debug output.",
-      "default": 0
-    },
-    "logsourcelocations": {
-      "name": "Log Source Locations",
-      "description": "Prepend debug output with name of the originating source location (source file, line number and function name).",
-      "default": 0
-    },
-    "logthreadnames": {
-      "name": "Log Thread Names",
-      "description": "Prepend debug output with name of the originating thread (only available on platforms supporting thread_local).",
-      "default": 0
-    },
-    "logtimestamps": {
-      "name": "Log Timestamps",
-      "description": "Log timestamps in debug output.",
-      "default": 1
-    },
-    "logtimemicros": {
-      "name": "Log Precise Timestamps",
-      "description": "Log timestamps with microsecond precision.",
-      "default": 0
-    },
-    "mocktime": {
-      "name": "Mock Timestamps",
-      "description": "Replace actual time with <n> seconds since epoch.",
-      "default": 0
-    },
-    "maxsigcachesize": {
-      "name": "Max Signature Cache Size",
-      "description": "Limit size of signature cache to <n> MiB.",
-      "default": 32,
-      "min": 1
-    },
-    "maxtipage": {
-      "name": "Max Age of Chain Tip",
-      "description": "Maximum tip age in seconds to consider node in initial block download.",
-      "default": 86400,
-      "min": 0
-    },
-    "maxtxfee": {
-      "name": "Max Transaction Fee",
-      "description": "Maximum total fees (in BTC) to use in a single wallet transaction or raw transaction; setting this too low may abort large transactions.",
-      "default": 0.1,
-      "min": 0
-    },
-    "printtoconsole": {
-      "name": "Output to Console",
-      "description": "Send trace/debug info to console instead of debug.log.",
-      "default": 0
-    },
-    "printpriority": {
-      "name": "Print Priority",
-      "description": "Log transaction fee per kB when mining blocks.",
-      "default": 0
-    },
-    "promiscuousmempoolflags": {
-      "name": "Script Verification Flags",
-      "description": "Integer representing the script verification flags to enable (all ORed together) - flags can be found in interpreter.h.",
-      "default": ""
-    },
-    "shrinkdebugfile": {
-      "name": "Shrink Debug Log File",
-      "description": "Shrink debug.log file on client startup.",
-      "default": 1
-    }
-  },
-  "relay": {
-    "section": "Transaction Relay",
-    "description": "Fine tune settings for what transactions your node will relay to peers.",
-    "acceptnonstdtxn": {
-      "name": "Accept Non-Standard Transactions",
-      "description": "Relay and mine non-standard transactions (testnet/regtest only.)",
-      "default": 0
-    },
-    "incrementalrelayfee": {
-      "name": "Incremental Relay Fee",
-      "description": "Fee rate (in BTC/kB) used to define cost of relay, used for mempool limiting and BIP 125 replacement.",
-      "default": 0.00001,
-      "min": 0
-    },
-    "dustrelayfee": {
-      "name": "Dust Relay Fee",
-      "description": "Fee rate (in BTC/kB) used to defined dust, the value of an output such that it will cost about 1/3 of its value in fees at this fee rate to spend it.",
-      "default": 0.00001,
-      "min": 0
-    },
-    "bytespersigop": {
-      "name": "Bytes Per Signature Operation",
-      "description": "Equivalent bytes per sigop in transactions for relay and mining.",
-      "default": 20,
-      "min": 1
-    },
-    "datacarrier": {
-      "name": "Relay OP_RETURN Transactions",
-      "description": "Relay transactions with OP_RETURN outputs.",
-      "default": 1
-    },
-    "datacarriersize": {
-      "name": "Max OP_RETURN Size",
-      "description": "Maximum size of data in OP_RETURN outputs we relay and mine.",
-      "default": 83,
-      "min": 1
-    },
-    "permitbaremultisig": {
-      "name": "Permit Bare Multisig",
-      "description": "Relay non-P2SH multisig transactions.",
-      "default": 1
-    },
-    "minrelaytxfee": {
-      "name": "Min Transaction Relay Fee",
-      "description": "Fee rates (in BTC/kB) smaller than this are considered zero fee for relaying, mining and transaction creation.",
-      "default": 0.00001,
-      "min": 0
-    },
-    "whitelistrelay": {
-      "name": "Whitelist Relay",
-      "description": "Accept relayed transactions received from whitelisted peers even when not relaying transactions.",
-      "default": 1
-    }
-  },
-  "network": {
-    "section": "Networking",
-    "description": "Options for how your node interacts with other peers on the network.",
-    "addnode": {
-      "name": "Connect to Peer",
-      "description": "Add a node IP address to connect to and attempt to keep the connection open. This option can be set multiple times.",
-      "default": ""
-    },
-    "asmap": {
-      "name": "ASN Mapping",
-      "description": "Specify asn mapping used for bucketing of the peers. Relative paths will be prefixed by the net-specific datadir location.",
-      "default": "$BASE/ip_asn.map"
-    },
-    "bantime": {
-      "name": "Peer Ban Time",
-      "description": "Number of seconds to keep misbehaving peers from reconnecting.",
-      "default": 86400,
-      "min": 1
-    },
-    "bind": {
-      "name": "Bind to IP Address",
-      "description": "Bind to given address and always listen on it. (default: 0.0.0.0). Use [host]:port notation for IPv6. Append =onion to tag any incoming connections to that address and port as incoming Tor connections",
-      "default": ""
-    },
-    "cjdnsreachable": {
-      "name": "CJDNS Reachable",
-      "description": "If set, then this host is configured for CJDNS (connecting to fc00::/8 addresses would lead us to the CJDNS network)",
-      "default": 0
-    },
-    "connect": {
-      "name": "Only Connect to Peer",
-      "description": "Connect only to the specified node(s); can be set multiple times. Set to 0 to disable automatic connections.",
-      "default": ""
-    },
-    "discover": {
-      "name": "Discover IP Address",
-      "description": "Discover own IP addresses. If disabled, should be used with -externalip or -proxy.",
-      "default": 1
-    },
-    "dns": {
-      "name": "Allow DNS Lookups",
-      "description": "Allow DNS lookups for -addnode, -seednode and -connect values.",
-      "default": 1
-    },
-    "dnsseed": {
-      "name": "Use DNS Seed",
-      "description": "Query for peer addresses via DNS lookup, if low on addresses.",
-      "default": 1
-    },
-    "externalip": {
-      "name": "External IP Address",
-      "description": "Specify your own public IP address.",
-      "default": ""
-    },
-    "fixedseeds": {
-      "name": "Use Fixed Seeds",
-      "description": "Allow fixed seeds if DNS seeds don't provide peers.",
-      "default": 1
-    },
-    "forcednsseed": {
-      "name": "Force DNS Seed",
-      "description": "Always query for peer addresses via DNS lookup.",
-      "default": 0
-    },
-    "i2pacceptincoming": {
-      "name": "Accept Incoming I2P Connections",
-      "description": "If set and -i2psam is also set then incoming I2P connections are accepted via the SAM proxy. If this is not set but -i2psam is set then only outgoing connections will be made to the I2P network. Ignored if -i2psam is not set. Listening for incoming I2P connections is done through the SAM proxy, not by binding to a local address and port.",
-      "default": 1
-    },
-    "i2psam": {
-      "name": "I2P SAM Proxy",
-      "description": "I2P SAM proxy <ip:port> to reach I2P peers and accept I2P connections."
-    },
-    "listen": {
-      "name": "Listen for Incoming Connections",
-      "description": "Accept incoming connections from peers.",
-      "default": 1
-    },
-    "listenonion": {
-      "name": "Tor Hidden Service",
-      "description": "Automatically create Tor hidden service.",
-      "default": 1
-    },
-    "maxconnections": {
-      "name": "Max Peer Connections",
-      "description": "Maintain at most N connections to peers.",
-      "default": 125,
-      "min": 0,
-      "max": 250
-    },
-    "maxreceivebuffer": {
-      "name": "Max Receive Buffer",
-      "description": "Maximum per-connection receive buffer (KiB).",
-      "default": 5000,
-      "min": 1000
-    },
-    "maxsendbuffer": {
-      "name": "Max Send Buffer",
-      "description": "Maximum per-connection send buffer (KiB).",
-      "default": 1000,
-      "min": 100
-    },
-    "maxtimeadjustment": {
-      "name": "Max Time Adjustment",
-      "description": "Maximum allowed median peer time offset adjustment in seconds. Local perspective of time may be influenced by peers forward or backward by this amount.",
-      "default": 4200,
-      "min": 0
-    },
-    "natpmp": {
-      "name": "NAT Port Mapping Protocol",
-      "description": "Use NAT-PMP to map the listening port.",
-      "default": 0
-    },
-    "networkactive": {
-      "name": "Network Active",
-      "description": "Enable all P2P network activity.",
-      "default": 1
-    },
-    "onion": {
-      "name": "Tor Proxy",
-      "description": "Use separate SOCKS5 proxy <ip:port> to reach peers via Tor hidden services.",
-      "default": ""
-    },
-    "onlynet": {
-      "name": "Only Use Specific Network",
-      "description": {
-        "any": "Use every available network",
-        "ipv4": "Only connect to peers via IPV4",
-        "ipv6": "Only connect to peers via IPV6.",
-        "onion": "Only connect to peers via Tor."
-      },
-      "default": "any",
-      "values": [
-        "Any [any]",
-        "IPV4 [ipv4]",
-        "IPV6 [ipv6]",
-        "Tor [onion]"
-      ]
-    },
-    "peerblockfilters": {
-      "name": "Permit Peer Block Filters",
-      "description": "Serve compact block filters to peers per BIP 157. NOTE: enabling this will force blockfilterindex on",
-      "default": 0
-    },
-    "peerbloomfilters": {
-      "name": "Permit Peer Bloom Filters",
-      "description": "Support filtering of blocks and transactions with bloom filters.",
-      "default": 0
-    },
-    "peertimeout": {
-      "name": "Peer Timeout",
-      "description": "Specify p2p connection timeout in seconds. The amount of time a peer may be inactive before the connection to it is dropped.",
-      "default": 60,
-      "min": 1
-    },
-    "port": {
-      "name": "Listen Port",
-      "description": "Listen for incoming connections on non-default port.",
-      "default": ""
-    },
-    "proxy": {
-      "name": "Proxy Connection",
-      "description": "Connect through <ip:port> SOCKS5 proxy.",
-      "default": ""
-    },
-    "proxyrandomize": {
-      "name": "Randomize Proxy",
-      "description": "Randomize credentials for every proxy connection. This enables Tor stream isolation.",
-      "default": 1
-    },
-    "seednode": {
-      "name": "Seed Node",
-      "description": "Connect to a node (IP address) to retrieve peer addresses, then disconnect.",
-      "default": ""
-    },
-    "timeout": {
-      "name": "Connection Timeout",
-      "description": "Initial peer connection timeout in milliseconds.",
-      "default": 5000,
-      "min": 1
-    },
-    "torcontrol": {
-      "name": "Tor Control",
-      "description": "Tor control <ip:port> to use if onion listening enabled.",
-      "default": "127.0.0.1:9051"
-    },
-    "torpassword": {
-      "name": "Tor Control Password",
-      "description": "Tor control port password.",
-      "default": ""
-    },
-    "upnp": {
-      "name": "Universal Plug 'n Play",
-      "description": "Use UPnP to map the listening port.",
-      "default": 0
-    },
-    "whitebind": {
-      "name": "Whitelist Bound IP Address",
-      "description": "Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6. Use [permissions]address for permissions. Allowed permissions are bloomfilter, noban, forcerelay, relay, and mempool. Specify multiple permissions separated by commas (default: noban,mempool,relay). Can be specified multiple times.",
-      "default": ""
-    },
-    "whitelist": {
-      "name": "Whitelist Peer",
-      "description": "Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Use [permissions]address for permissions. Uses same permissions as Whitelist Bound IP Address. Can be specified multiple times. Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool. Useful for a gateway node.",
-      "default": ""
-    },
-    "maxuploadtarget": {
-      "name": "Max Upload Target",
-      "description": "Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit.",
-      "default": 0,
-      "min": 0
-    }
-  },
-  "mining": {
-    "section": "Mining",
-    "description": "Configure attributes of blocks that can be mined by this node.",
-    "blockmaxweight": {
-      "name": "Max Block Weight",
-      "description": "Set maximum BIP141 block weight.",
-      "default": 3000000
-    },
-    "blockmintxfee": {
-      "name": "Block Min Transaction Fee",
-      "description": "Set lowest fee rate (in BTC/kB) for transactions to be included in block creation.",
-      "default": 0.00001,
-      "min": 0
-    },
-    "blockversion": {
-      "name": "Block Version",
-      "description": "Override block version to test forking scenarios.",
-      "default": ""
-    }
-  },
-  "rpc": {
-    "section": "RPC API",
-    "description": "Configure security and performance options for accessing the node's RPC interface.",
-    "deprecatedrpc": {
-      "name": "Enable Deprecated RPC Commands",
-      "description": {
-        "accounts": "Enable Accounts RPC",
-        "addwitnessaddress": "Enable Add Witness Address RPC",
-        "signrawtransaction": "Enable Sign Raw Transaction RPC",
-        "validateaddress": "Enable Validate Address RPC"
-      },
-      "default": [],
-      "values": [
-        "Accounts [accounts]",
-        "Add Witness Address [addwitnessaddress]",
-        "Sign Raw Transaction [signrawtransaction]",
-        "Validate Address [validateaddress]"
-      ]
-    },
-    "server": {
-      "name": "Enable RPC Server",
-      "description": "Accept command line and JSON-RPC commands.",
-      "default": 0
-    },
-    "rest": {
-      "name": "Enable REST API",
-      "description": "Accept public REST requests.",
-      "default": 0
-    },
-    "rpcbind": {
-      "name": "Bind RPC Address",
-      "description": "Bind to given address to listen for JSON-RPC connections. This option is ignored unless -rpcallowip is also passed. Port is optional and overrides -rpcport. Use [host]:port notation for IPv6. This option can be specified multiple times. (default: 127.0.0.1 and ::1 i.e., localhost)",
-      "default": ""
-    },
-    "rpccookiefile": {
-      "name": "RPC Cookie Directory",
-      "description": "Location of the RPC auth cookie",
-      "default": ".cookie"
-    },
-    "rpcauth": {
-      "name": "RPC Auth",
-      "description": "Username and hashed password for JSON-RPC connections. The field <userpw> comes in the format: <USERNAME>:<SALT>$<HASH>. RPC clients connect using rpcuser=<USERNAME>/rpcpassword=<PASSWORD> arguments. You can generate this value at https://jlopp.github.io/bitcoin-core-rpc-auth-generator/. This option can be specified multiple times.",
-      "default": ""
-    },
-    "rpcport": {
-      "name": "RPC Port",
-      "description": "Listen for JSON-RPC connections on this port",
-      "default": 8332
-    },
-    "rpcallowip": {
-      "name": "RPC Allow IP Address",
-      "description": "Allow JSON-RPC connections from specified source. Valid for <ip> are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times.",
-      "default": ""
-    },
-    "rpcwhitelistdefault": {
-      "name": "RPC Whitelist Default",
-      "description": "Sets default behavior for rpc whitelisting. Unless rpcwhitelistdefault is set to 0, if any -rpcwhitelist is set, the rpc server acts as if all rpc users are subject to empty-unless-otherwise-specified whitelists. If rpcwhitelistdefault is set to 1 and no -rpcwhitelist is set, rpc server acts as if all rpc users are subject to empty whitelists.",
-      "default": 0
-    },
-    "rpcwhitelist": {
-      "name": "RPC Whitelist",
-      "description": "Set a whitelist to filter incoming RPC calls for a specific user. The field <whitelist> comes in the format: <USERNAME>:<rpc 1>,<rpc 2>,...,<rpc n>. If multiple whitelists are set for a given user, they are set-intersected.",
-      "default": ""
-    },
-    "rpcthreads": {
-      "name": "RPC Threads",
-      "description": "Set the number of threads to service RPC calls",
-      "default": 4,
-      "min": 1
-    },
-    "rpcworkqueue": {
-      "name": "RPC Work Queue Size",
-      "description": "Set the depth of the work queue to service RPC calls",
-      "default": 16,
-      "min": 1
-    },
-    "rpcserialversion": {
-      "name": "RPC Serialization",
-      "description": {
-        "0": "Return raw transaction or block hex with non-SegWit serialization.",
-        "1": "Return raw transaction or block hex with SegWit serialization."
-      },
-      "default": "1",
-      "values": [
-        "Non-SegWit [0]",
-        "SegWit [1]"
-      ]
-    },
-    "rpcservertimeout": {
-      "name": "RPC Timeout",
-      "description": "Number of seconds after which an uncompleted RPC call will time out",
-      "default": 30,
-      "min": 1
-    }
-  },
-  "wallet": {
-    "section": "Wallet",
-    "description": "Configure behavior of the node's wallet.",
-    "addresstype": {
-      "name": "Address Type",
-      "description": {
-        "legacy": "Legacy",
-        "p2sh-segwit": "P2SH Wrapped SegWit",
-        "bech32": "Bech32"
-      },
-      "default": "p2sh-segwit",
-      "values": [
-        "Legacy [legacy]",
-        "P2SH Wrapped SegWit [p2sh-segwit]",
-        "Bech32 [bech32]"
-      ]
-    },
-    "avoidpartialspends": {
-      "name": "Avoid Partial Spends",
-      "description": "Group outputs by address, selecting all or none, instead of selecting on a per-output basis. Improves privacy at expense of higher transaction fees.",
-      "default": 0
-    },
-    "changetype": {
-      "name": "Change Address Type",
-      "description": {
-        "legacy": "Legacy",
-        "p2sh-segwit": "P2SH Wrapped SegWit",
-        "bech32": "Bech32"
-      },
-      "default": "p2sh-segwit",
-      "values": [
-        "Legacy [legacy]",
-        "P2SH Wrapped SegWit [p2sh-segwit]",
-        "Bech32 [bech32]"
-      ]
-    },
-    "consolidatefeerate": {
-      "name": "Consolidate Fee Rate",
-      "description": "The maximum feerate (in BTC/kvB) at which transaction building may use more inputs than strictly necessary so that the wallet's UTXO pool can be reduced",
-      "default": 0.0001,
-      "min": 0.00001
-    },
-    "disablewallet": {
-      "name": "Disable Wallet",
-      "description": "Do not load the wallet and disable wallet RPC calls.",
-      "default": 0
-    },
-    "keypool": {
-      "name": "Key Pool Size",
-      "description": "Set key pool size to <n>. Recommended to use a large number for high volume non-HD wallets.",
-      "default": 1000,
-      "min": 10
-    },
-    "fallbackfee": {
-      "name": "Fallback Transaction Fee",
-      "description": "A fee rate (in BTC/kB) that will be used when fee estimation has insufficient data",
-      "default": 0.0002,
-      "min": 0
-    },
-    "discardfee": {
-      "name": "Discard Change Fee",
-      "description": "The fee rate (in BTC/kB) that indicates your tolerance for discarding change by adding it to the fee",
-      "default": 0.0001,
-      "min": 0
-    },
-    "maxapsfee": {
-      "name": "Max Avoid Partial Spend Fee",
-      "description": "Spend up to this amount in additional (absolute) fees (in BTC) if it allows the use of partial spend avoidance (default: 0.00)",
-      "default": 0.00,
-      "min": 0
-    },
-    "mintxfee": {
-      "name": "Min Transaction Fee",
-      "description": "Fee rates (in BTC/kB) smaller than this are considered zero fee for transaction creation",
-      "default": 0.00001,
-      "min": 0
-    },
-    "paytxfee": {
-      "name": "Pay Transaction Fee",
-      "description": "Fee rate (in BTC/kB) to add to transactions you send. Not recommended to set!",
-      "default": 0
-    },
-    "signer": {
-      "name": "Signer Command",
-      "description": "External signing tool, see doc/external-signer.md"
-    },
-    "spendzeroconfchange": {
-      "name": "Spend Unconfirmed Change",
-      "description": "Spend unconfirmed change when sending transactions.",
-      "default": 1
-    },
-    "rootcertificates": {
-      "name": "Root Certificate file",
-      "description": "Specify a custom root certificate to trust for payment requests. Delete value to disable trusting root certificates.",
-      "default": "-system-"
-    },
-    "txconfirmtarget": {
-      "name": "Transaction Fee Confirmation Target",
-      "description": "If paytxfee is not set, include enough fee so that transactions should confirm within <n> blocks",
-      "default": 6,
-      "min": 2,
-      "max": 25
-    },
-    "unsafesqlitesync": {
-      "name": "Unsafe SQL Lite Sync",
-      "description": "Disable waiting for the database to sync to disk. This is unsafe and can cause data loss and corruption. This option is only used by tests to improve their performance.",
-      "default": 0
-    },
-    "walletrbf": {
-      "name": "Enable Replace By Fee Transactions",
-      "description": "Send transactions with full-RBF opt-in enabled.",
-      "default": 1
-    },
-    "wallet": {
-      "name": "Wallet Path",
-      "description": "Specify wallet database path. Can be specified multiple times to load multiple wallets. Path is interpreted relative to <walletdir> if it is not absolute and will be created if it does not exist.",
-      "default": ""
-    },
-    "walletdir": {
-      "name": "Wallet Data Storage Location",
-      "description": "Specify a non-default location to store wallet data.",
-      "default": "$BASE/wallets"
-    },
-    "walletbroadcast": {
-      "name": "Broadcast Transactions",
-      "description": "Broadcast transactions created by the wallet.",
-      "default": 1
-    },
-    "walletnotify": {
-      "name": "Wallet Notification",
-      "description": "Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)",
-      "default": ""
-    },
-    "dblogsize": {
-      "name": "DB Log Size",
-      "description": "Flush wallet database activity from memory to disk log every <n> megabytes",
-      "default": 100
-    },
-    "flushwallet": {
-      "name": "Flush Wallet Automatically",
-      "description": "Run a thread to flush wallet periodically.",
-      "default": 1
-    },
-    "privdb": {
-      "name": "Private DB",
-      "description": "Set the DB_PRIVATE flag in the wallet db environment.",
-      "default": 1
-    },
-    "walletrejectlongchains": {
-      "name": "Reject Long Transaction Chains",
-      "description": "Wallet will not create transactions that violate mempool chain limits.",
-      "default": 1
-    }
-  },
-  "zeromq": {
-    "section": "ZeroMQ",
-    "description": "Options for handling notifications emitted via ZeroMQ.",
-    "zmqpubhashblock": {
-      "name": "Publish Block Hashes",
-      "description": "Enable publishing of block hashes to <address>.",
-      "default": ""
-    },
-    "zmqpubhashtx": {
-      "name": "Publish Transaction Hashes",
-      "description": "Enable publishing of transaction hashes to <address>.",
-      "default": ""
-    },
-    "zmqpubrawblock": {
-      "name": "Publish Raw Blocks",
-      "description": "Enable publishing of raw block hex to <address>.",
-      "default": ""
-    },
-    "zmqpubrawtx": {
-      "name": "Publish Raw Transactions",
-      "description": "Enable publishing of raw transaction hex to <address>.",
-      "default": ""
-    },
-    "zmqpubhashblockhwm": {
-      "name": "Publish Block Hashes High Water Mark",
-      "description": "Set publish hash block outbound message high water mark.",
-      "default": 1000
-    },
-    "zmqpubhashtxhwm": {
-      "name": "Publish Transaction Hashes High Water Mark",
-      "description": "Set publish hash transaction outbound message high water mark.",
-      "default": 1000
-    },
-    "zmqpubrawblockhwm": {
-      "name": "Publish Raw Blocks High Water Mark",
-      "description": "Set publish raw block outbound message high water mark.",
-      "default": 1000
-    },
-    "zmqpubrawtxhwm": {
-      "name": "Publish Raw Transactions High Water Mark",
-      "description": "Set publish raw transaction outbound message high water mark.",
-      "default": 1000
-    },
-    "zmqpubsequence": {
-      "name": "Publish Hash Block and Transaction Sequence",
-      "description": "Enable publish hash block and tx sequence in <address>.",
-      "default": ""
-    },
-    "zmqpubsequencehwm": {
+    "tlsautorefresh": {
+      "name": "Tls auto refresh",
+      "description": "The duration from generating the self signed certificate to the certificate expiry date. Valid time units are {s, m, h}. The below value is about 14 months (14 * 30 * 24 = 10080)",
+      "default": "10080h"
+    },
+    "tlscertduration": {
       "name": "Publish Hash Sequence Message High Water Mark",
-      "description": "Set publish hash sequence message high water mark.",
-      "default": 1000
+      "description": "If set, then all certs will automatically be refreshed if they're close to expiring, or if any parameters related to extra IPs or domains in the cert change.",
+      "default": ""
+    },
+    "tlsdisableautofill": {
+      "name": "Tls disable auto fill",
+      "description": "Do not include the interface IPs or the system hostname in TLS certificate, use first --tlsextradomain as Common Name instead, if set.",
+      "default": "true"
+    },
+    "externalhosts": {
+      "name": "External Hosts",
+      "description": "A list of domains for lnd to periodically resolve, and advertise the resolved. IPs for the backing node. This is useful for users that only have a dynamic IP, or want to expose the node at a domain.",
+      "default": "my-node-domain.com"
+    },
+    "letsencryptdir": {
+      "name": "Lets encrypt dir",
+      "description": "Lets the directory to store Let's Encrypt certificates within",
+      "default": "~/.lnd/letsencrypt"
+    },
+    "letsencryptlisten": {
+      "name": "Lets encrypt listen",
+      "description": "The IP:port on which lnd will listen for Let's Encrypt challenges.",
+      "default": "localhost:8080"
+    },
+    "letsencryptdomain": {
+      "name": "Lets encrypt domain",
+      "description": "Request a Let's Encrypt certificate for this domain. Note that the certificate is only requested and stored when the first rpc connection comes in.",
+      "default": "example.com"
+    },
+    "no-macaroons": {
+      "name": "No macaroons",
+      "description": "Disable macaroon authentication. Macaroons are used as bearer credentials to authenticate all RPC access",
+      "default": "false"
+    },
+    "sync-freelist": {
+      "name": "Sync Fee List",
+      "description": "Enable free list syncing for the default bbolt database. This will decrease start up time, but can result in performance degradation for very large databases, and also result in higher memory usage. If \"free list corruption\" is detected, then this flag may resolve things.",
+      "default": "true"
+    },
+    "adminmacaroonpath": {
+      "name": "Admin Macaroon Path",
+      "description": "Path to write the admin macaroon for lnd's RPC and REST services if it doesn't exist",
+      "default": "~/.lnd/data/chain/bitcoin/simnet/admin.macaroon"
+    },
+    "readonlymacaroonpath": {
+      "name": "Read only macaroon",
+      "description": "Path to write the read-only macaroon for lnd's RPC and REST services if it doesn't exist.",
+      "default": "~/.lnd/data/chain/bitcoin/simnet/readonly.macaroon"
+    },
+    "invoicemacaroonpath": {
+      "name": "invoice macaroon path",
+      "description": "Path to write the invoice macaroon for lnd's RPC and REST services if it doesn't exist.",
+      "default": "~/.lnd/data/chain/bitcoin/simnet/invoice.macaroon"
+    },
+    "coin-selection-strategy": {
+      "name": "Coin Selection Strategy",
+      "description": "The strategy to use for selecting coins for wallet transactions. Options are 'largest' and 'random'.",
+      "default": "largest"
+    },
+    "payments-expiration-grace-period": {
+      "name": "Payments expiration grace period",
+      "description": " A period to wait before for closing channels with outgoing htlcs that have timed out and are a result of this nodes instead payment. Valid time units are {s, m, h}.",
+      "default": "true"
     }
   }
 }

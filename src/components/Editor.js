@@ -24,203 +24,21 @@ class Editor extends Component {
   render () {
     const {settings} = this.props;
     const platform = settings.__internal.platform;
-    const base = settings.core.datadir !== '$BASE' ? settings.core.datadir : basePath(platform);
-
-    // handle config dependencies here
-    if (settings.network.peerblockfilters === 1 && settings.core.blockfilterindex !== "1") {
-      settings.core.blockfilterindex = "1";
-    }
 
     return (
       <div>
         { this.select('__internal', 'platform') }
-
-        <Section title={data.core.section} description={data.core.description}>
-          { this.text('core', 'alertnotify') }
-          { this.select('core', 'blockfilterindex') }
-          { this.text('core', 'blocknotify') }
-          { this.path('core', 'blocksdir', base, platform) }
-          { this.flag('core', 'blocksonly') }
-          { this.text('core', 'assumevalid') }
-          { this.flag('core', 'coinstatsindex') }
-          { this.flag('core', 'daemon') }
-          { this.flag('core', 'daemonwait') }
-          { this.path('core', 'datadir', base, platform) }
-          { this.number('core', 'dbbatchsize') }
-          { this.number('core', 'dbcache') }
-          { this.text('core', 'includeconf') }
-          { this.text('core', 'loadblock') }
-          { this.number('core', 'maxorphantx') }
-          { this.number('core', 'maxmempool') }
-          { this.number('core', 'mempoolexpiry') }
-          { this.flag('core', 'persistmempool') }
-          { this.text('core', 'minimumchainwork') }
-          { this.number('core', 'blockreconstructionextratxn') }
-          { this.number('core', 'par') }
-          { this.text('core', 'pid') }
-          { this.number('core', 'prune') }
-          { this.flag('core', 'reindex-chainstate') }
-          { this.flag('core', 'reindex') }
-          { this.select('core', 'sandbox') }
-          { this.text('core', 'settings') }
-          { this.text('core', 'startupnotify') }
-          { this.flag('core', 'sysperms') }
-          { this.flag('core', 'txindex') }
-        </Section>
-        <Section title={data.debug.section} description={data.debug.description}>
-          { this.text('debug', 'uacomment') }
-          { this.flag('debug', 'addrmantest') }
-          { this.flag('debug', 'capturemessages') }
-          { this.number('debug', 'checkblocks') }
-          { this.number('debug', 'checklevel') }
-          { this.number('debug', 'checkaddrman') }
-          { this.number('debug', 'checkmempool') }
-          { this.flag('debug', 'checkpoints') }
-          { this.decimal('debug', 'dbcrashratio') }
-          { this.flag('debug', 'fastprune') }
-          { this.flag('debug', 'stopafterblockimport') }
-          { this.number('debug', 'stopatheight') }
-          { this.text('debug', 'testactivationheight') }
-          { this.number('debug', 'limitancestorcount') }
-          { this.number('debug', 'limitancestorsize') }
-          { this.number('debug', 'limitdescendantcount') }
-          { this.number('debug', 'limitdescendantsize') }
-          { this.select('debug', 'debug') }
-          { this.select('debug', 'debugexclude') }
-          { this.path('debug', 'debuglogfile', base, platform) }
-          { this.flag('debug', 'logips') }
-          { this.flag('debug', 'logsourcelocations') }
-          { this.flag('debug', 'logthreadnames') }
-          { this.flag('debug', 'logtimestamps') }
-          { this.flag('debug', 'logtimemicros') }
-          { this.number('debug', 'mocktime') }
-          { this.number('debug', 'maxsigcachesize') }
-          { this.number('debug', 'maxtipage') }
-          { this.decimal('debug', 'maxtxfee') }
-          { this.flag('debug', 'printtoconsole') }
-          { this.flag('debug', 'printpriority') }
-          { this.text('debug', 'promiscuousmempoolflags') }
-          { this.flag('debug', 'shrinkdebugfile') }
-        </Section>
-        <Section title={data.chain.section} description={data.chain.description}>
-          { this.select('chain', 'chain') }
-          { this.flag('chain', 'regtest') }
-          { this.flag('chain', 'signet') }
-          { this.text('chain', 'signetchallenge') }
-          { this.text('chain', 'signetseednode') }
-          { this.flag('chain', 'testnet') }
-          { this.text('chain', 'vbparams') }
-        </Section>
-        <Section title={data.mining.section} description={data.mining.description}>
-          { this.number('mining', 'blockmaxweight') }
-          { this.decimal('mining', 'blockmintxfee') }
-          { this.text('mining', 'blockversion') }
-        </Section>
-        <Section title={data.network.section} description={data.network.description}>
-          { this.text('network', 'addnode') }
-          { this.path('network', 'asmap', base, platform) }
-          { this.number('network', 'bantime') }
-          { this.text('network', 'bind') }
-          { this.flag('network', 'cjdnsreachable') }
-          { this.text('network', 'connect') }
-          { this.flag('network', 'discover') }
-          { this.flag('network', 'dns') }
-          { this.flag('network', 'dnsseed') }
-          { this.text('network', 'externalip') }
-          { this.flag('network', 'fixedseeds') }
-          { this.flag('network', 'forcednsseed') }
-          { this.flag('network', 'i2pacceptincoming') }
-          { this.text('network', 'i2psam') }
-          { this.flag('network', 'listen') }
-          { this.flag('network', 'listenonion') }
-          { this.number('network', 'maxconnections') }
-          { this.number('network', 'maxreceivebuffer') }
-          { this.number('network', 'maxsendbuffer') }
-          { this.number('network', 'maxtimeadjustment') }
-          { this.flag('network', 'natpmp') }
-          { this.flag('network', 'networkactive') }
-          { this.text('network', 'onion') }
-          { this.select('network', 'onlynet') }
-          { this.flag('network', 'peerblockfilters') }
-          { this.flag('network', 'peerbloomfilters') }
-          { this.number('network', 'peertimeout') }
-          { this.number('network', 'port') }
-          { this.text('network', 'proxy') }
-          { this.flag('network', 'proxyrandomize') }
-          { this.text('network', 'seednode') }
-          { this.number('network', 'timeout') }
-          { this.text('network', 'torcontrol') }
-          { this.text('network', 'torpassword') }
-          { this.flag('network', 'upnp') }
-          { this.text('network', 'whitebind') }
-          { this.text('network', 'whitelist') }
-          { this.number('network', 'maxuploadtarget') }
-        </Section>
-        <Section title={data.relay.section} description={data.relay.description}>
-          { this.flag('relay', 'acceptnonstdtxn') }
-          { this.decimal('relay', 'incrementalrelayfee') }
-          { this.decimal('relay', 'dustrelayfee') }
-          { this.number('relay', 'bytespersigop') }
-          { this.flag('relay', 'datacarrier') }
-          { this.number('relay', 'datacarriersize') }
-          { this.flag('relay', 'permitbaremultisig') }
-          { this.decimal('relay', 'minrelaytxfee') }
-          { this.flag('relay', 'whitelistrelay') }
-        </Section>
-        <Section title={data.rpc.section} description={data.rpc.description}>
-          { this.multiselect('rpc', 'deprecatedrpc') }
-          { this.flag('rpc', 'server') }
-          { this.flag('rpc', 'rest') }
-          { this.text('rpc', 'rpcbind') }
-          { this.path('rpc', 'rpccookiefile', base, platform) }
-          { this.text('rpc', 'rpcauth') }
-          { this.number('rpc', 'rpcport') }
-          { this.text('rpc', 'rpcallowip') }
-          { this.flag('rpc', 'rpcwhitelistdefault') }
-          { this.text('rpc', 'rpcwhitelist') }
-          { this.number('rpc', 'rpcthreads') }
-          { this.number('rpc', 'rpcworkqueue') }
-          { this.select('rpc', 'rpcserialversion') }
-          { this.number('rpc', 'rpcservertimeout') }
-        </Section>
-        <Section title={data.wallet.section} description={data.wallet.description}>
-          { this.select('wallet', 'addresstype') }
-          { this.flag('wallet', 'avoidpartialspends') }
-          { this.select('wallet', 'changetype') }
-          { this.decimal('wallet', 'consolidatefeerate') }
-          { this.flag('wallet', 'disablewallet') }
-          { this.number('wallet', 'keypool') }
-          { this.decimal('wallet', 'fallbackfee') }
-          { this.decimal('wallet', 'discardfee') }
-          { this.decimal('wallet', 'maxapsfee') }
-          { this.decimal('wallet', 'mintxfee') }
-          { this.decimal('wallet', 'paytxfee') }
-          { this.text('wallet', 'signer') }
-          { this.flag('wallet', 'spendzeroconfchange') }
-          { this.text('wallet', 'rootcertificates') }
-          { this.number('wallet', 'txconfirmtarget') }
-          { this.flag('wallet', 'unsafesqlitesync') }
-          { this.flag('wallet', 'walletrbf') }
-          { this.text('wallet', 'wallet') }
-          { this.path('wallet', 'walletdir', base, platform) }
-          { this.flag('wallet', 'walletbroadcast') }
-          { this.text('wallet', 'walletnotify') }
-          { this.number('wallet', 'dblogsize') }
-          { this.flag('wallet', 'flushwallet') }
-          { this.flag('wallet', 'privdb') }
-          { this.flag('wallet', 'walletrejectlongchains') }
-        </Section>
-        <Section title={data.zeromq.section} description={data.zeromq.description}>
-          { this.text('zeromq', 'zmqpubhashblock') }
-          { this.text('zeromq', 'zmqpubhashtx') }
-          { this.text('zeromq', 'zmqpubrawblock') }
-          { this.text('zeromq', 'zmqpubrawtx') }
-          { this.text('zeromq', 'zmqpubsequence') }
-          { this.number('zeromq', 'zmqpubhashblockhwm') }
-          { this.number('zeromq', 'zmqpubhashtxhwm') }
-          { this.number('zeromq', 'zmqpubrawblockhwm') }
-          { this.number('zeromq', 'zmqpubrawtxhwm') }
-          { this.number('zeromq', 'zmqpubsequencehwm') }
+        <Section title={data.app.section} description={data.app.description}>
+          { this.text('app', 'zmqpubhashblock') }
+          { this.text('app', 'zmqpubhashtx') }
+          { this.text('app', 'zmqpubrawblock') }
+          { this.text('app', 'zmqpubrawtx') }
+          { this.text('app', 'zmqpubsequence') }
+          { this.number('app', 'zmqpubhashblockhwm') }
+          { this.number('app', 'zmqpubhashtxhwm') }
+          { this.number('app', 'zmqpubrawblockhwm') }
+          { this.number('app', 'zmqpubrawtxhwm') }
+          { this.number('app', 'zmqpubsequencehwm') }
         </Section>
       </div>
     );
