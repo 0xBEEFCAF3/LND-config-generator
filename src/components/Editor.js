@@ -22,7 +22,14 @@ class Editor extends Component {
   };
 
   render() {
-    const properties = ["app", "bitcoin", "btcd", "bitcoind", "neutrino"];
+    const properties = [
+      "app",
+      "bitcoin",
+      "btcd",
+      "bitcoind",
+      "neutrino",
+      "autopilot",
+    ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;
     return (
