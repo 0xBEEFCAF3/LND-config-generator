@@ -909,5 +909,19 @@
       "description": "",
       "default": "15s"
     }
+  },
+  "wtclient": {
+    "section": "Watch Tower Client",
+    "description": "Interact with the watchtower client directly to obtain/modify information about the set of registered watchtowers.",
+    "wtclient.active": {
+      "name": "Wtclient Active",
+      "description": "Activate Watchtower Client. To get more information or configure watchtowers",
+      "default": false
+    },
+    "wtclient.sweep-fee-rate": {
+      "name": "wtclient Wweep Fee Rate",
+      "description": "Specify the fee rate with which justice transactions will be signed. This fee rate should be chosen as a maximum fee rate one is willing to pay in order to sweep funds if a breach occurs while being offline. The fee rate should be specified in sat/byte, the default is 10 sat/byte",
+      "default": 10
+    }
   }
 }
