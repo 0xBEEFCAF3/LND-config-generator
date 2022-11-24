@@ -602,5 +602,101 @@
       "description": "The seed DNS server(s) to use for initial peer discovery. Must be specified as a '<primary_dns>[,<soa_primary_dns>]' tuple where the SOA address is needed for DNS resolution through Tor but is optional for clearnet users. Multiple tuples can be specified, will overwrite the default seed servers. The default seed servers are",
       "default": ""
     }
+  },
+  "btcd": {
+    "section": "Btcd",
+    "description": "Btcd Backend Parameters",
+    "btcd.dir": {
+      "name": "Btcd Directory",
+      "description": "The base directory that contains the node's data, logs, configuration file, etc",
+      "default": "~/.btcd"
+    },
+    "btcd.rpchost": {
+      "name": "Btcd. RPC Host",
+      "description": "The host that your local btcd daemon is listening on. By default, this setting is assumed to be localhost with the default port for the current network.",
+      "default": "localhost"
+    },
+    "btcd.rpcuser": {
+      "name": "Btcd RPC User",
+      "description": "Username for RPC connections to btcd. By default, lnd will attempt to automatically obtain the credentials, so this likely won't need to be set (other than for simnet mode).",
+      "default": ""
+    },
+    "btcd.rpcpass": {
+      "name": "Btcd RPC Password",
+      "description": "Password for RPC connections to btcd. By default, lnd will attempt to automatically obtain the credentials, so this likely won't need to be set (other than for simnet mode).",
+      "default": ""
+    },
+    "btcd.rpccert": {
+      "name": "Btcd RPC Cert",
+      "description": "File containing the daemon's certificate file. This only needs to be set if the node isn't on the same host as lnd.",
+      "default": "~/.btcd/rpc.cert"
+    },
+    "btcd.rawrpccert": {
+      "name": "Btcd Raw RPC cert",
+      "description": "The raw bytes of the daemon's PEM-encoded certificate chain which will be used to authenticate the RPC connection. This only needs to be set if the btcd node is on a remote host.",
+      "default": ""
+    }
+  },
+  "bitcoind": {
+    "section": "Bitcoind",
+    "description": "Bitcoind Backend Parameters",
+    "bitcoind.dir": {
+      "name": "bitcoind Directory",
+      "description": "The base directory that contains the node's data, logs, configuration file, etc",
+      "default": "~/.bitcoind"
+    },
+    "bitcoind.rpchost": {
+      "name": "bitcoind. RPC Host",
+      "description": "The host that your local bitcoind daemon is listening on. By default, this setting is assumed to be localhost with the default port for the current network.",
+      "default": "localhost"
+    },
+    "bitcoind.rpcuser": {
+      "name": "bitcoind RPC User",
+      "description": "Username for RPC connections to bitcoind. By default, lnd will attempt to automatically obtain the credentials, so this likely won't need to be set (other than for simnet mode).",
+      "default": ""
+    },
+    "bitcoind.rpcpass": {
+      "name": "bitcoind RPC Password",
+      "description": "Password for RPC connections to bitcoind. By default, lnd will attempt to automatically obtain the credentials, so this likely won't need to be set (other than for simnet mode).",
+      "default": ""
+    },
+    "bitcoind.zmqpubrawblock": {
+      "name": "bitcoind ZMQ pubrawblock",
+      "description": "ZMQ socket which sends rawblock and rawtx notifications from bitcoind. By default, lnd will attempt to automatically obtain this information, so this likely won't need to be set (other than for a remote bitcoind instance).",
+      "default": ""
+    },
+    "bitcoind.zmqpubrawtx": {
+      "name": "bitcoind ZMQ pubrawblock",
+      "description": "ZMQ socket which sends rawtx notifications from bitcoind.",
+      "default": ""
+    },
+    "bitcoind.rpcpolling": {
+      "name": "bitcoind RPC polling",
+      "description": "Use bitcoind's rpc interface to get block and transaction notifications instead of using the zmq interface. Only the rpcpolling option needs to be set in order to enable this, the rest of the options can be used to change the default values used for this configuration.",
+      "default": false
+    },
+    "bitcoind.blockpollinginterval": {
+      "name": "bitcoind Block Polling Interval",
+      "description": "Interval which we use bitcoind rpc to look for new blocks",
+      "default": ""
+    },
+    "bitcoind.txpollinginterval": {
+      "name": "bitcoind Transaction Polling Interval",
+      "description": "Interval which we use bitcoind rpc to look for new raw txs",
+      "default": ""
+    },
+    "bitcoind.estimatemode": {
+      "name": "bitcoind Read Dead Line",
+      "description": "Fee estimate mode for bitcoind.",
+      "description": {
+        "ECONOMICAL": "Economical Mode",
+        "CONSERVATIVE": "Conservative Mode"
+      },
+      "values": [
+        "CONSERVATIVE",
+        "ECONOMICAL"
+      ],
+      "default": "CONSERVATIVE"
+    }
   }
 }
