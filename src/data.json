@@ -1032,5 +1032,100 @@
       "description": "The amount of time we should wait between remote signer RPC connection health checks. This value must be >= 1m.",
       "default": ""
     }
+  },
+  "signrpc": {
+    "section": "Sign RPC",
+    "description": "Signing RPC Parameters",
+    "signrpc.signermacaroonpath": {
+      "name": "Signer Macaroon Path",
+      "description": "Path to the signer macaroon.",
+      "default": "~/.lnd/data/chain/bitcoin/simnet/signer.macaroon"
+    }
+  },
+  "walletrpc": {
+    "section": "Wallet RPC",
+    "description": "Wallet RPC Parameters",
+    "walletrpc.walletkitmacaroonpath": {
+      "name": "Wallet Kit Macaroon Path",
+      "description": "Path to the wallet kit macaroon.",
+      "default": "~/.lnd/data/chain/bitcoin/simnet/walletkit.macaroon"
+    }
+  },
+   "chainrpc": {
+    "section": "Chain RPC",
+    "description": "Chain RPC Parameters",
+    "chainrpc.notifiermacaroonpath": {
+      "name": "Notifier Macaroon Path",
+      "description": "Path to the chain notifier macaroon.",
+      "default": "~/.lnd/data/chain/bitcoin/simnet/chainnotifier.macaroon"
+    }
+  },
+  "routerrpc": {
+    "section": "Router RPC",
+    "description": "Router RPC Parameters",
+    "routerrpc.minrtprob": {
+      "name": "Minimum Route Probability",
+      "description": "Minimum required route success probability to attempt the payment",
+      "default": 0.01
+    },
+    "routerrpc.apriorihopprob": {
+      "name": "Apriori Hop prob",
+      "description": "Assumed success probability of a hop in a route when no other information is available.",
+      "default": 0.6
+    },
+    "routerrpc.aprioriweight": {
+      "name": "Apriori weight",
+      "description": "Weight of the a priori probability in success probability estimation. Valid values are in [0, 1].",
+      "default": 0.3
+    },
+    "routerrpc.penaltyhalflife": {
+      "name": "Penalty Half Life",
+      "description": "Defines the duration after which a penalized node or channel is back at 50% probability",
+      "default": "1h0m0s"
+    },
+    "routerrpc.attemptcost": {
+      "name": "Attempt Cost",
+      "description": "The (virtual) fixed cost in sats of a failed payment attempt",
+      "default": ""
+    },
+    "routerrpc.attemptcostppm": {
+      "name": "Attempt Cost PPM",
+      "description": "The (virtual) proportional cost in ppm of the total amount of a failed payment attempt",
+      "default": 1000
+    },
+    "routerrpc.maxmchistory": {
+      "name": "Maximum Mission Control History",
+      "description": "The maximum number of payment results that are held on disk by mission control",
+      "default": 1000
+    },
+    "routerrpc.mcflushinterval": {
+      "name": "Mission Control Flush Interval",
+      "description": "The time interval with which the MC store state is flushed to the DB.",
+      "default": "1m"
+    },
+    "routerrpc.routermacaroonpath": {
+      "name": "Router Macaroon Path",
+      "description": "Path to the router macaroon",
+      "default": "~/.lnd/data/chain/bitcoin/simnet/router.macaroon"
+    }
+  },
+  "workers": {
+    "section": "Workers",
+    "description": "Section for controlling concurrency",
+    "workers.read": {
+      "name": "Workers Read",
+      "description": "Maximum number of concurrent read pool workers. This number should be proportional to the number of peers.",
+      "default": 100
+    },
+    "workers.write": {
+      "name": "Workers Write",
+      "description": "Maximum number of concurrent write pool workers. This number should be proportional to the number of CPUs on the host.",
+      "default": 8
+    },
+    "workers.sig": {
+      "name": "Workers Sig",
+      "description": "Maximum number of concurrent sig pool workers. This number should be proportional to the number of CPUs on the host.",
+      "default": 8
+    }
   }
 }

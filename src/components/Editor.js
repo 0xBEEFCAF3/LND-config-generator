@@ -33,6 +33,9 @@ class Editor extends Component {
       "watchtower",
       "wtclient",
       "healthcheck",
+      "signrpc",
+      "routerrpc",
+      "workers",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;
