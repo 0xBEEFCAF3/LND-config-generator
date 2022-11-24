@@ -806,5 +806,108 @@
       "description": "The confirmation target (in blocks) for channels opened by autopilot.",
       "default": 3
     }
+  },
+  "tor": {
+    "section": "Tor",
+    "description": "Connect to the lightning network through Tor",
+    "tor.active": {
+      "name": "Tor Active",
+      "description": "; Allow outbound and inbound connections to be routed through Tor.",
+      "default":  false
+    },
+    "tor.skip-proxy-for-clearnet-targets": {
+      "name": "Tor Skip Proxy For Clearnet Targets",
+      "description": "Allow the node to connect to non-onion services directly via clearnet. This allows the node operator to use direct connections to peers not running behind Tor, thus allowing lower latency and better connection stability.",
+      "default":  false
+    },
+    "tor.socks": {
+      "name": "Tor Socks",
+      "description": "The port that Tor's exposed SOCKS5 proxy is listening on. Using Tor allows outbound-only connections ",
+      "default":  9050
+    },
+    "tor.dns": {
+      "name": "Tor Dns",
+      "description": "The DNS server as IP:PORT that Tor will use for SRV queries - NOTE must have TCP resolution enabled. The current active DNS server for Testnet listening is nodes.lightning.directory",
+      "default":  ""
+    },
+    "tor.streamisolation": {
+      "name": "Tor Stream Isolation",
+      "description": "Enable Tor stream isolation by randomizing user credentials for each connection. With this mode active, each connection will use a new circuit. This means that multiple applications (other than lnd) using Tor won't be mixed in with lnd's traffic.",
+      "default":  false
+    },
+    "tor.control": {
+      "name": "Tor Control",
+      "description": "The host:port that Tor is listening on for Tor control connections",
+      "default":  9051
+    },
+    "tor.targetipaddress": {
+      "name": "Tor Target IP Address",
+      "description": "IP address that Tor should use as the target of the hidden service",
+      "default":  ""
+    },
+    "tor.password": {
+      "name": "Tor Password",
+      "description": "The password used to arrive at the HashedControlPassword for the control port. If provided, the HASHEDPASSWORD authentication method will be used instead of the SAFECOOKIE one.",
+      "default":  ""
+    },
+    "tor.v2": {
+      "name": "Tor V2",
+      "description": "Automatically set up a v2 onion service to listen for inbound connections",
+      "default":  false
+    },
+    "tor.v3": {
+      "name": "Tor V3",
+      "description": "Automatically set up a v3 onion service to listen for inbound connections",
+      "default":  false
+    },
+    "tor.privatekeypath": {
+      "name": "Tor Private Key Path",
+      "description": "The path to the private key of the onion service being created",
+      "default":  "/path/to/torkey"
+    },
+    "tor.watchtowerkeypath": {
+      "name": "Tor Watch Tower Key Path",
+      "description": "The path to the private key of the watchtower onion service being created",
+      "default":  "/path/to/torkey"
+    },
+    "tor.encryptkey": {
+      "name": "Tor Encrypt Key",
+      "description": "Instructs lnd to encrypt the private key using the wallet's seed.",
+      "default": false
+    }
+  },
+  "watchtower": {
+    "section": "Watch Tower",
+    "description": "Watchtowers act as a second line of defense in responding to malicious or accidental breach scenarios in the event that the client’s node is offline or unable to respond at the time of a breach, offering greater degree of safety to channel funds.",
+    "watchtower.active": {
+      "name": "Watchtower Active",
+      "description": "Enable integrated watchtower listening on :9911 by default.",
+      "default": false
+    },
+    "watchtower.listen": {
+      "name": "Watchtower Listen",
+      "description": "Specify the interfaces to listen on for watchtower client connections. One listen address per line. If no port is specified the default port of 9911 will be defaulted",
+      "default": ""
+    },
+    "watchtower.externalip": {
+      "name": "Watchtower External IP",
+      "description": "Configure the external IP address of your watchtower. Setting this field does not have any behavioral changes to the tower or enable any sort of discovery, however it will make the full URI (pubkey@host:port) available via WatchtowerRPC.GetInfo and `lncli tower info`.",
+      "default": ""
+    },
+    "watchtower.towerdir": {
+      "name": "Watchtower Tower Directory",
+      "description": "Configure the default watchtower data directory. The default directory is data/watchtower relative to the chosen lnddir. This can be useful if one needs to move the database to a separate volume with more storage.",
+      "default": ""
+    },
+    "watchtower.readtimeout": {
+      "name": "Watchtower Read Timeout",
+      "description": "Duration the watchtower server will wait for messages to be received before hanging up on client connections.",
+      "default": "15s"
+    },
+    "watchtower.writetimeout": {
+      "name": "Watchtower Write Timeout",
+      "description": "",
+      "default": "15s"
+    }
   }
 }

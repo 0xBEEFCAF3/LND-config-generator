@@ -29,6 +29,8 @@ class Editor extends Component {
       "bitcoind",
       "neutrino",
       "autopilot",
+      "tor",
+      "watchtower",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;
