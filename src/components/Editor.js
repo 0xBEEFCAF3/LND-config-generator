@@ -31,6 +31,8 @@ class Editor extends Component {
       "autopilot",
       "tor",
       "watchtower",
+      "wtclient",
+      "healthcheck",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;

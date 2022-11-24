@@ -923,5 +923,114 @@
       "description": "Specify the fee rate with which justice transactions will be signed. This fee rate should be chosen as a maximum fee rate one is willing to pay in order to sweep funds if a breach occurs while being offline. The fee rate should be specified in sat/byte, the default is 10 sat/byte",
       "default": 10
     }
+  },
+  "healthcheck": {
+    "section": "Health Check",
+    "description": "Monitor the liveliness of your node with periodic health checks",
+    "healthcheck.chainbackend.attempts": {
+      "name": "Health Check Chain Backend Attempts",
+      "description": "The number of times we should attempt to query our chain backend before gracefully shutting down. Set this value to 0 to disable this health check",
+      "default": 3
+    },
+    "healthcheck.chainbackend.timeout": {
+      "name": "Health Check Chain Backend Timeout",
+      "description": "The amount of time we allow a call to our chain backend to take before we fail the attempt. This value must be >= 1s.",
+      "default": "10s"
+    },
+    "healthcheck.chainbackend.backoff": {
+      "name": "Health Check Chain Backend Backoff",
+      "description": "The amount of time we should backoff between failed attempts to query chain backend. This value must be >= 1s.",
+      "default": "30s"
+    },
+    "healthcheck.chainbackend.interval": {
+      "name": "Health Check Chain Backend Interval",
+      "description": "The amount of time we should wait between chain backend health checks. This value must be >= 1m.",
+      "default": "1m"
+    },
+    "healthcheck.diskspace.diskrequired": {
+      "name": "Health Check Disk Space. Disk Required",
+      "description": "The minimum ratio of free disk space to total capacity that we require.",
+      "default": 0.1
+    },
+    "healthcheck.diskspace.attempts": {
+      "name": "Health Check Disk Space Attempts",
+      "description": "The number of times we should attempt to query our available disk space before gracefully shutting down. Set this value to 0 to disable this health check.",
+      "default": 2
+    },
+    "healthcheck.diskspace.timeout": {
+      "name": "Health Check Disk Space Timeout",
+      "description": "The amount of time we allow a query for our available disk space to take before we fail the attempt. This value must be >= 1s.",
+      "default": "5s"
+    },
+    "healthcheck.diskspace.backoff": {
+      "name": "Health Check Disk Space Backoff",
+      "description": "The amount of time we should backoff between failed attempts to query available disk space. This value must be >= 1s.",
+      "default": "1m"
+    },
+    "healthcheck.diskspace.interval": {
+      "name": "Health Check Disk Space Interval",
+      "description": "The amount of time we should wait between disk space health checks. This value must be >= 1m.",
+      "default": "6h"
+    },
+     "healthcheck.tls.attempts": {
+      "name": "Health Check TLS Attempts",
+      "description": "The number of times we should attempt to check for certificate expiration before gracefully shutting down. Set this value to 0 to disable this health check.",
+      "default": 2
+    },
+    "healthcheck.tls.timeout": {
+      "name": "Health Check TLS Timeout",
+      "description": "The amount of time we allow a query for certificate expiration to take before we fail the attempt. This value must be >= 1s.",
+      "default": "5s"
+    },
+    "healthcheck.tls.backoff": {
+      "name": "Health Check TLS Backoff",
+      "description": "The amount of time we should backoff between failed attempts to query certificate expiration. This value must be >= 1s.",
+      "default": "1m"
+    },
+    "healthcheck.tls.interval": {
+      "name": "Health Check TLS Interval",
+      "description": "The amount of time we should wait between certificate expiration health checks. This value must be >= 1m.",
+      "default": ""
+    },
+    "healthcheck.torconnection.attempts": {
+      "name": "Health Check Tor Connection Attempts",
+      "description": "The number of times we should attempt to check our tor connection before gracefully shutting down. Set this value to 0 to disable this health check.",
+      "default": 0
+    },
+    "healthcheck.torconnection.timeout": {
+      "name": "Health Check Tor Connection Timeout",
+      "description": "he amount of time we allow a call to our tor connection to take before we  fail the attempt. This value must be >= 1s.",
+      "default": "10s"
+    },
+    "healthcheck.torconnection.backoff": {
+      "name": "Health Check Tor Connection Backoff",
+      "description": "The amount of time we should backoff between failed attempts to check tor connection. This value must be >= 1s.",
+      "default": "30s"
+    },
+    "healthcheck.torconnection.interval": {
+      "name": "Health Check Tor Connection Interval",
+      "description": "The amount of time we should wait between tor connection health checks. This value must be >= 1m.",
+      "default": "1m"
+    },
+    "healthcheck.remotesigner.attempts": {
+      "name": "Health Check Remote Signer Attempts",
+      "description": "The number of times we should attempt to check our remote signer RPC connection before gracefully shutting down. Set this value to 0 to disable this health check.",
+      "default": 0
+    },
+    "healthcheck.remotesigner.timeout": {
+      "name": "Health Check Remote Signer Timeout",
+      "description": "The amount of time we allow a call to our remote signer RPC connection to take before we fail the attempt. This value must be >= 1s.",
+      "default": "1s"
+    },
+    "healthcheck.remotesigner.backoff": {
+      "name": "Health Check Remote Signer Backoff",
+      "description": "The amount of time we should backoff between failed attempts to check remote signer RPC connection. This value must be >= 1s.",
+      "default": "1s"
+    },
+    "healthcheck.remotesigner.interval": {
+      "name": "Health Check Remote Signer Interval",
+      "description": "The amount of time we should wait between remote signer RPC connection health checks. This value must be >= 1m.",
+      "default": ""
+    }
   }
 }
