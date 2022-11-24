@@ -698,5 +698,64 @@
       ],
       "default": "CONSERVATIVE"
     }
+  },
+  "neutrino": {
+    "section": "Neutrino",
+    "description": "Neutrino Backend Parameters",
+    "neutrino.connect": {
+      "name": "Neutrino Connect",
+      "description": "Connect only to the specified peers at startup. This creates a persistent connection to a target peer. This is recommended as there aren't many neutrino compliant full nodes on the test network yet.",
+      "default": ""
+    },
+    "neutrino.maxpeers": {
+      "name": "Neutrino Max Peers",
+      "description": "Max number of inbound and outbound peers.",
+      "default": ""
+    },
+    "neutrino.addpeer": {
+      "name": "Neutrino Add Peer",
+      "description": "Add a peer to connect with at startup.",
+      "default": ""
+    },
+    "neutrino.banduration": {
+      "name": "Neutrino Banduration",
+      "description": "How long to ban misbehaving peers. Valid time units are {s, m, h}. Minimum 1 second.",
+      "default": ""
+    },
+    "neutrino.banthreshold": {
+      "name": "Neutrino Ban Threshold",
+      "description": "Maximum allowed ban score before disconnecting and banning misbehaving peers.",
+      "default": ""
+    },
+    "neutrino.assertfilterheader": {
+      "name": "Neutrino Assert Filter Header",
+      "description": "Optional filter header in height:hash format to assert the state of neutrino's filter header chain on startup. If the assertion does not hold, then the. filter header chain will be re-synced from the genesis block.",
+      "default": ""
+    },
+    "neutrino.useragentname": {
+      "name": "Neutrino User Agent Name",
+      "description": "Used to help identify ourselves to other bitcoin peers",
+      "default": "neutrino"
+    },
+    "neutrino.useragentversion": {
+      "name": "Neutrino User Agent Version",
+      "description": "",
+      "default": "0.11.0-beta"
+    },
+    "neutrino.broadcasttimeout": {
+      "name": "Neutrino Broad Cast Timeout",
+      "description": "The amount of time to wait before giving up on a transaction broadcast attempt.",
+      "default": "5s"
+    },
+    "neutrino.persistfilters": {
+      "name": "Neutrino Persist Filters",
+      "description": "Whether compact filters fetched from the P2P network should be persisted to disk.",
+      "default": false
+    },
+    "neutrino.validatechannels": {
+      "name": "Neutrino Validatechannels",
+      "description": "Validate every channel in the graph during sync by downloading the containing block. This is the inverse of routing.assumechanvalid, meaning that for Neutrino the validation is turned off by default for massively increased graph sync performance. This speedup comes at the risk of using an unvalidated view of the network for routing. Overwrites the value of routing.assumechanvalid if Neutrino is used.",
+      "default": false
+    }
   }
 }
