@@ -1180,5 +1180,29 @@
       "description": "Set to disable support for using P2TR addresses (and beyond) for co-op closing.",
       "default": false
     }
+  },
+  "db": {
+    "section": "Data Base",
+    "description": "",
+    "db.backend": {
+      "name": "Backend",
+      "description": " The selected database backend. The current default backend is 'bolt'.lnd also has experimental support for etcd, a replicated backend.",
+      "default": "bolt"
+    },
+    "db.batch-commit-interval": {
+      "name": "Batch Commit Interval",
+      "description": "The maximum interval the graph database will wait between attempting to flush a batch of modifications to disk.",
+      "default": "500ms"
+    },
+    "db.no-graph-cache": {
+      "name": "No Graph Cache",
+      "description": "Don't use the in-memory graph cache for path finding. Much slower but uses less RAM. Can only be used with a bolt database backend.",
+      "default": false
+    },
+    "db.prune-revocation": {
+      "name": "Prune Revocation",
+      "description": "Specify whether the optional migration for pruning old revocation logs should be applied. This migration will only save disk space if there are open channels prior to lnd@v0.15.0.",
+      "default": true
+    }
   }
 }

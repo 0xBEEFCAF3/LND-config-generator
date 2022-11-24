@@ -38,6 +38,7 @@ class Editor extends Component {
       "workers",
       "caches",
       "protocol",
+      "db",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;
