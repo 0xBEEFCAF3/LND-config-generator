@@ -36,6 +36,7 @@ class Editor extends Component {
       "signrpc",
       "routerrpc",
       "workers",
+      "caches",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;

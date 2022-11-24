@@ -1127,5 +1127,24 @@
       "description": "Maximum number of concurrent sig pool workers. This number should be proportional to the number of CPUs on the host.",
       "default": 8
     }
+  },
+  "caches": {
+    "section": "Caches",
+    "description": "",
+    "caches.reject-cache-size": {
+      "name": "Reject Cache Size",
+      "description": "Maximum number of entries contained in the reject cache, which is used to speed up filtering of new channel announcements and channel updates from peers. Each entry requires 25 bytes.",
+      "default": 50000
+    },
+    "caches.channel-cache-size": {
+      "name": "Channel Cache Size",
+      "description": "Maximum number of entries contained in the channel cache, which is used to reduce memory allocations from gossip queries from peers. Each entry requires roughly 2Kb.",
+      "default": 20000
+    },
+    "caches.rpc-graph-cache-duration": {
+      "name": "RPC Graph Cache Duration",
+      "description": "The duration that the response to DescribeGraph should be cached for. Setting the value to zero disables the cache.",
+      "default": "1m"
+    }
   }
 }
