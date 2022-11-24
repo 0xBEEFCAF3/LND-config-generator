@@ -1146,5 +1146,39 @@
       "description": "The duration that the response to DescribeGraph should be cached for. Setting the value to zero disables the cache.",
       "default": "1m"
     }
+  },
+  "protocol": {
+    "section": "Protocol",
+    "description": "Protocol Level Parameters",
+    "protocol.wumbo-channels": {
+      "name": "Wumbo Channels",
+      "description": "If set, then lnd will create and accept requests for channels larger than 0.16 BTC",
+      "default": false
+    },
+    "protocol.no-anchors": {
+      "name": "No-anchors",
+      "description": " Set to disable support for anchor commitments. If not set, lnd will use anchor channels by default if the remote channel party supports them. Note that lnd will require 1 UTXO to be reserved for this channel type if it is enabled.",
+      "default": false
+    },
+    "protocol.no-script-enforced-lease": {
+      "name": "No Script Enforced Lease",
+      "description": "Set to disable support for script enforced lease channel commitments. If not set, lnd will accept these channels by default if the remote channel party proposes them. Note that lnd will require 1 UTXO to be reserved for this channel type if it is enabled.",
+      "default": false
+    },
+    "protocol.option-scid-alias": {
+      "name": "Option Short Channel Alias",
+      "description": "Set to enable support for option_scid_alias channels, which can be referred to by an alias instead of the confirmed ShortChannelID. Additionally, is needed to open zero-conf channels.",
+      "default": false
+    },
+    "protocol.zero-conf": {
+      "name": "Zero Conf",
+      "description": "Set to enable support for zero-conf channels. This requires the option-scid-alias flag to also be set.",
+      "default": false
+    },
+    "protocol.no-any-segwit": {
+      "name": "No Any Segwit",
+      "description": "Set to disable support for using P2TR addresses (and beyond) for co-op closing.",
+      "default": false
+    }
   }
 }

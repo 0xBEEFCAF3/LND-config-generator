@@ -37,6 +37,7 @@ class Editor extends Component {
       "routerrpc",
       "workers",
       "caches",
+      "protocol",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;
