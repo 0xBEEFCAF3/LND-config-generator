@@ -1447,5 +1447,32 @@
       "description": "",
       "default": "1s"
     }
+  },
+  "invoices": {
+    "section": "Invoices",
+    "description": "If a hold invoice has accepted htlcs that reach their expiry height and are not timed out, the channel holding the htlc is force closed to resolve theinvoice's htlcs. To prevent force closes, lnd automatically cancels these invoices before they reach their expiry height.",
+    "invoices.holdexpirydelta": {
+      "name": "Hold Expiry Delta",
+      "description": "Lnd goes to chain before the expiry for a htlc is reached so that there is time to resolve it on chain. This value needs to be greater than the DefaultIncomingBroadcastDelta set by lnd, otherwise the channel will be forceclosed anyway. A warning will be logged on startup if this value is not largeenough to prevent force closes.",
+      "default": 0
+    }
+  },
+  "sweeper": {
+    "section": "Sweeper",
+    "description": "",
+    "sweeper.batchwindowduration": {
+      "name": "Batch Window Duration",
+      "description": "Duration of the sweep batch window. The sweep is held back during the batch window to allow more inputs to be added and thereby lower the fee per input",
+      "default": "30s"
+    }
+  },
+  "htlcswitch": {
+    "section": "HTLC Switch",
+    "description": "",
+    "htlcswitch.mailboxdeliverytimeout": {
+      "name": "Batch Window Duration",
+      "description": "The timeout value when delivering HTLCs to a channel link. Setting this value too small will result in local payment failures if large number of payments are sent over a short period.",
+      "default": ""
+    }
   }
 } 

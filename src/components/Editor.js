@@ -44,6 +44,9 @@ class Editor extends Component {
       "rpcmiddlewear",
       "remotesigner",
       "gossip",
+      "invoices",
+      "sweeper",
+      "htlcswitch",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;
