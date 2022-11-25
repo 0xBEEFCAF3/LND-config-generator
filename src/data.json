@@ -564,7 +564,7 @@
     },
     "bitcoin.defaultremotedelay": {
       "name": "Bitcoin Defaultremotedelay",
-      "description": "The default number of blocks we will require our channel counterparty to wait; before accessing its funds in case of unilateral close. If this is not set, we; will scale the value according to the channel size.",
+      "description": "The default number of blocks we will require our channel counterparty to wait before accessing its funds in case of unilateral close. If this is not set, we; will scale the value according to the channel size.",
       "default": 144
     },
     "bitcoin.maxlocaldelay": {
@@ -1182,7 +1182,7 @@
     }
   },
   "db": {
-    "section": "Data Base",
+    "section": "DB",
     "description": "",
     "db.backend": {
       "name": "Backend",
@@ -1203,6 +1203,100 @@
       "name": "Prune Revocation",
       "description": "Specify whether the optional migration for pruning old revocation logs should be applied. This migration will only save disk space if there are open channels prior to lnd@v0.15.0.",
       "default": true
+    }
+  },
+  "etcd": {
+    "section": "ETCD",
+    "description": " experimental etcd support to LND. As this is an unstable feature heavily in development, it still has many rough edges for the time being. It is therefore highly recommended to not use LND on etcd in any kind of production environment especially not on bitcoin mainnet.",
+    "": {
+      "name": "",
+      "description": "",
+      "default": ""
+    },
+    "": {
+      "name": "",
+      "description": "",
+      "default": ""
+    },
+    "": {
+      "name": "",
+      "description": "",
+      "default": ""
+    },
+    "": {
+      "name": "",
+      "description": "",
+      "default": ""
+    },
+    "db.etcd.host": {
+      "name": "Host",
+      "description": "Etcd database host.",
+      "default": ""
+    },
+    "db.etcd.user": {
+      "name": "user",
+      "description": "Etcd database user.",
+      "default": ""
+    },
+    "db.etcd.pass": {
+      "name": "Password",
+      "description": "Password for the database user.",
+      "default": ""
+    },
+    "db.etcd.namespace": {
+      "name": "Namespace",
+      "description": "Etcd namespace to use.",
+      "default": "lnd"
+    },
+    "db.etcd.disabletls": {
+      "name": "Disable TLS",
+      "description": "Whether to disable the use of TLS for etcd.",
+      "default": false
+    },
+    "db.etcd.cert_file": {
+      "name": "Cert File",
+      "description": "Path to the TLS certificate for etcd RPC.",
+      "default": ""
+    },
+    "db.etcd.key_file": {
+      "name": "Key File",
+      "description": "Path to the TLS private key for etcd RPC.",
+      "default": ""
+    },
+    "db.etcd.insecure_skip_verify": {
+      "name": "Insecure Skip Verify",
+      "description": "Whether we intend to skip TLS verification",
+      "default": false
+    },
+    "db.etcd.collect_stats": {
+      "name": "Collect Stats",
+      "description": "Whether to collect etcd commit stats",
+      "default": false
+    },
+    "db.etcd.embedded": {
+      "name": "Embedded",
+      "description": "If set LND will use an embedded etcd instance instead of the external one. Useful for testing.",
+      "default": false
+    },
+    "db.etcd.embedded_client_port": {
+      "name": "Embedded Client Port",
+      "description": "If non zero, LND will use this as client port for the embedded etcd instance.",
+      "default": 1234
+    },
+    "db.etcd.embedded_peer_port": {
+      "name": "Embedded Peer Port",
+      "description": "If non zero, LND will use this as peer port for the embedded etcd instance.",
+      "default": 1234
+    },
+    "db.etcd.embedded_log_file": {
+      "name": "Embedded Log File",
+      "description": "If set the embedded etcd instance will log to the specified file. Useful when testing with embedded etcd.",
+      "default": "/path/etcd.log"
+    },
+    "db.etcd.max_msg_size": { 
+      "name": "Max Message Size",
+      "description": "The maximum message size in bytes that we may send to etcd. Defaults to 32 MiB.",
+      "default": 33554432
     }
   }
 }

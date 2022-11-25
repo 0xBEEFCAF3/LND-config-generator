@@ -39,6 +39,7 @@ class Editor extends Component {
       "caches",
       "protocol",
       "db",
+      "etcd",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;
@@ -57,7 +58,6 @@ class Editor extends Component {
                 if (data[property][config].values) {
                   return this.select(property, config);
                 }
-
                 if (typeof data[property][config].default === "boolean") {
                   return this.flag(property, config);
                 }
