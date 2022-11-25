@@ -40,6 +40,10 @@ class Editor extends Component {
       "protocol",
       "db",
       "etcd",
+      "cluster",
+      "rpcmiddlewear",
+      "remotesigner",
+      "gossip",
     ];
     const { settings } = this.props;
     const platform = settings.__internal.platform;

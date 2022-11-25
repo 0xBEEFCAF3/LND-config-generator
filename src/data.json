@@ -1298,5 +1298,154 @@
       "description": "The maximum message size in bytes that we may send to etcd. Defaults to 32 MiB.",
       "default": 33554432
     }
+  },
+  "postgres": {
+    "section": "Postgres",
+    "description": "",
+    "db.postgres.dsn": {
+      "name": "DNS",
+      "description": "Postgres connection string",
+      "default": ""
+    },
+    "db.postgres.timeout": {
+      "name": "Timeout",
+      "description": "Postgres connection timeout. Valid time units are {s, m, h}. Set to zero to disable.",
+      "default": "0"
+    },
+    "db.postgres.maxconnections": {
+      "name": "Max Connections",
+      "description": " Postgres maximum number of connections. Set to zero for unlimited. It is recommended to set a limit that is below the server connection limit. Otherwise errors may occur in lnd under high-load conditions.",
+      "default": ""
+    }
+  },
+  "bolt": {
+    "section": "Bolt",
+    "description": "",
+    "db.bolt.nofreelistsync": {
+      "name": "No Free List Sync",
+      "description": "If true, prevents the database from syncing its freelist to disk",
+      "default": 1
+    },
+    "db.bolt.auto-compact": {
+      "name": "Auto Compact",
+      "description": "Whether the databases used within lnd should automatically be compacted on every startup (and if the database has the configured minimum age). This is disabled by default because it requires additional disk space to be available during the compaction that is freed afterwards. In general compaction leads to smaller database files.",
+      "default": false
+    },
+    "db.bolt.auto-compact-min-age": {
+      "name": "Auto Compact Min Age",
+      "description": "How long ago the last compaction of a database file must be for it to be considered for auto compaction again. Can be set to 0 to compact on every startup.",
+      "default": "168h"
+    },
+    "db.bolt.dbtimeout": {
+      "name": "DB Timeout",
+      "description": "Specify the timeout to be used when opening the database",
+      "default": "60s"
+    }
+  },
+  "cluster": {
+    "section": "Cluster",
+    "description": "Lnd Cluster Parameters",
+    "cluster.enable-leader-election": {
+      "name": "Enable Leader Election",
+      "description": "Enables leader election if set",
+      "default": false
+    },
+    "cluster.leader-elector": {
+      "name": "Leader Elector",
+      "description": {
+        "etcd": ""
+      },
+      "default": "0",
+      "values": [
+        "etcd"
+      ]
+    },
+    "cluster.etcd-election-prefix": {
+      "name": "Etcd Election Prefix",
+      "description": "Election key prefix when using etcd leader elector",
+      "default": "/leader/"
+    },
+    "cluster.id": {
+      "name": "Cluster Id",
+      "description": "Identifier for this node inside the cluster (used in leader election). Defaults to the hostname",
+      "default": "example.com"
+    },
+    "cluster.leader-session-ttl": {
+      "name": "Cluster Leader Session TTL",
+      "description": "",
+      "default": ""
+    }
+  },
+  "rpcmiddleware": {
+    "section": "RPC Middleware",
+    "description": "",
+    "rpcmiddleware.enable": {
+      "name": "Enable",
+      "description": "Enable the RPC middleware interceptor functionality",
+      "default": false
+    },
+    "rpcmiddleware.intercepttimeout": {
+      "name": "Intercept Timeout",
+      "description": "Time after which a RPC middleware intercept request will time out and return an error if it hasn't yet received a response.",
+      "default": ""
+    },
+    "rpcmiddleware.addmandatory": {
+      "name": "Add Mandatory",
+      "description": " Add the named middleware to the list of mandatory middlewares. All RPC requests are blocked/denied if any of the mandatory middlewares is not registered. Can be specified multiple times.",
+      "default": ""
+    }
+  },
+  "remotesigner": {
+    "section": "Remote Signer",
+    "description": "Use a remote signer for signing any on-chain related transactions or messages. Only recommended if local wallet is initialized as watch-only. Remote signer must use the same seed/root key as the local watch-only wallet but must have private keys.",
+    "remotesigner.enable": {
+      "name": "Enable",
+      "description": "",
+      "default": false
+    },
+    "remotesigner.rpchost": {
+      "name": "RPC Host",
+      "description": "The remote signer's RPC host:port.",
+      "default": ""
+    },
+    "remotesigner.macaroonpath": {
+      "name": "remotesigner Macaroon Path",
+      "description": "The macaroon to use for authenticating with the remote signer",
+      "default": ""
+    },
+    "remotesigner.tlscertpath": {
+      "name": "TLS Cert Path",
+      "description": "The TLS certificate to use for establishing the remote signer's identity",
+      "default": ""
+    },
+    "remotesigner.timeout": {
+      "name": "remotesigner.timeout",
+      "description": "The timeout for connecting to and signing requests with the remote signer. Valid time units are",
+      "default": "1s"
+    },
+    "remotesigner.migrate-wallet-to-watch-only": {
+      "name": "Migrate Wallet To Watch Only",
+      "description": "If a wallet with private key material already exists, migrate it into a watch-only wallet on first startup. WARNING: This cannot be undone! Make sure you have backed up your seed before you use this flag! All private keys will be purged from the wallet after first unlock with this flag!",
+      "default": ""
+    }
+  },
+  "gossip": {
+    "section": "Gossip",
+    "description": "Specify a set of pinned gossip syncers, which will always be actively syncing whenever the corresponding peer is online. A pinned syncer does not count towards the configured `numgraphsyncpeers` since pinned syncers are not rotated. Configuring a pinned syncer does not ensure a persistent connection to the target peer, they will only be pinned if the connection remains active via some other mechanism, e.g. having an open channel.",
+    "gossip.pinned-syncers": {
+      "name": "Pinned Syncers",
+      "description": "Each value should be a hex-encoded pubkey of the pinned peer. Multiple pinned peers can be specified by setting multiple flags/fields in the config.",
+      "default": "pubkey1"
+    },
+    "gossip.max-channel-update-burst": {
+      "name": "Max Channel Update Burst",
+      "description": "The maximum number of updates for a specific channel and direction that lnd will accept over the channel update interval.",
+      "default": 0
+    },
+    "gossip.channel-update-interval": {
+      "name": "Channel Update Interval",
+      "description": "",
+      "default": "1s"
+    }
   }
-}
+} 
