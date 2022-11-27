@@ -5,7 +5,7 @@ import Section from "./Section";
 import Item from "./Item";
 import Select from "./controls/Select";
 
-import { localPath, basePath, joinPath } from "../system";
+import { localPath, joinPath } from "../system";
 import data from "../data.json";
 
 class Editor extends Component {
@@ -41,15 +41,13 @@ class Editor extends Component {
       "db",
       "etcd",
       "cluster",
-      "rpcmiddlewear",
+      "rpcmiddleware",
       "remotesigner",
       "gossip",
       "invoices",
       "sweeper",
       "htlcswitch",
     ];
-    const { settings } = this.props;
-    const platform = settings.__internal.platform;
     return (
       <div>
         {this.select("__internal", "platform")}
