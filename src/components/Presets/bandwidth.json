@@ -1,9 +1,0 @@
-{
-  "core": {
-    "blocksonly": 1
-   },
-   "network": {
-    "maxconnections": 20,
-    "maxuploadtarget": 500
-  }
-}

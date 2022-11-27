@@ -1,7 +1,0 @@
-{
-  "network": {
-    "connect": 0,
-    "listen": 0,
-    "maxconnections": 0
-  }
-}
