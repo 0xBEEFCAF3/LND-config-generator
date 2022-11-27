@@ -6,16 +6,6 @@ import "./Presets.css";
 import Select from "../controls/Select";
 import Item from "../Item";
 
-import mining from "./mining.json";
-import ports from "./ports.json";
-import bandwidth from "./bandwidth.json";
-import pruned from "./pruned.json";
-import pi from "./pi.json";
-import tor from "./tor.json";
-import testnet from "./testnet.json";
-import regtest from "./regtest.json";
-import nosync from "./nosync.json";
-
 function toVal(val) {
   return { name: val, value: val };
 }
