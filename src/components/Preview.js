@@ -98,7 +98,7 @@ function toConf(settings, defaults) {
         .filter((val) => val !== "");
 
       if (vals.length > 0) {
-        acc.push(`\n# [${section}]`);
+        acc.push(`\n[${section}]`);
       }
 
       return acc.concat(vals);
